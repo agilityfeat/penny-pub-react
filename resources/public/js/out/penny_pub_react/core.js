@@ -23,17 +23,17 @@ return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMP
 
 penny_pub_react.core.row.cljs$lang$maxFixedArity = (1);
 
-penny_pub_react.core.row.cljs$lang$applyTo = (function (seq19144){
-var G__19145 = cljs.core.first.call(null,seq19144);
-var seq19144__$1 = cljs.core.next.call(null,seq19144);
-return penny_pub_react.core.row.cljs$core$IFn$_invoke$arity$variadic(G__19145,seq19144__$1);
+penny_pub_react.core.row.cljs$lang$applyTo = (function (seq19186){
+var G__19187 = cljs.core.first.call(null,seq19186);
+var seq19186__$1 = cljs.core.next.call(null,seq19186);
+return penny_pub_react.core.row.cljs$core$IFn$_invoke$arity$variadic(G__19187,seq19186__$1);
 });
 /**
  * This function returns a complete textarea field, using an atom value
  */
 penny_pub_react.core.atom_text_area = (function penny_pub_react$core$atom_text_area(id,label,value){
-return penny_pub_react.core.row.call(null,label,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"textarea.form-control","textarea.form-control",-1690362789),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"field","field",-1302436500),new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.Keyword(null,"key","key",-1516042587),id,new cljs.core.Keyword(null,"id","id",-1388402092),id,new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,value),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__19146_SHARP_){
-return cljs.core.reset_BANG_.call(null,value,p1__19146_SHARP_.target.value);
+return penny_pub_react.core.row.call(null,label,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"textarea.form-control","textarea.form-control",-1690362789),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"field","field",-1302436500),new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.Keyword(null,"key","key",-1516042587),id,new cljs.core.Keyword(null,"id","id",-1388402092),id,new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,value),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__19188_SHARP_){
+return cljs.core.reset_BANG_.call(null,value,p1__19188_SHARP_.target.value);
 })], null)], null));
 });
 penny_pub_react.core.navbar = (function penny_pub_react$core$navbar(){
@@ -50,21 +50,21 @@ penny_pub_react.core.pages = new cljs.core.PersistentArrayMap(null, 1, [new cljs
 penny_pub_react.core.page = (function penny_pub_react$core$page(){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.pages.call(null,reagent.session.get.call(null,new cljs.core.Keyword(null,"page","page",849072397)))], null);
 });
-var action__6759__auto___19149 = (function (params__6760__auto__){
+var action__6759__auto___19191 = (function (params__6760__auto__){
 if(cljs.core.map_QMARK_.call(null,params__6760__auto__)){
-var map__19147 = params__6760__auto__;
-var map__19147__$1 = ((cljs.core.seq_QMARK_.call(null,map__19147))?cljs.core.apply.call(null,cljs.core.hash_map,map__19147):map__19147);
+var map__19189 = params__6760__auto__;
+var map__19189__$1 = ((cljs.core.seq_QMARK_.call(null,map__19189))?cljs.core.apply.call(null,cljs.core.hash_map,map__19189):map__19189);
 return reagent.session.put_BANG_.call(null,new cljs.core.Keyword(null,"page","page",849072397),new cljs.core.Keyword(null,"home","home",-74557309));
 } else {
 if(cljs.core.vector_QMARK_.call(null,params__6760__auto__)){
-var vec__19148 = params__6760__auto__;
+var vec__19190 = params__6760__auto__;
 return reagent.session.put_BANG_.call(null,new cljs.core.Keyword(null,"page","page",849072397),new cljs.core.Keyword(null,"home","home",-74557309));
 } else {
 return null;
 }
 }
 });
-secretary.core.add_route_BANG_.call(null,"/",action__6759__auto___19149);
+secretary.core.add_route_BANG_.call(null,"/",action__6759__auto___19191);
 
 penny_pub_react.core.mount_components = (function penny_pub_react$core$mount_components(){
 reagent.core.render_component.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.navbar], null),document.getElementById("navbar"));

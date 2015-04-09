@@ -7,14 +7,14 @@ penny_pub_react.pubnub.channel_name = "canal";
  * Init the PubNub Object, and subscribe to the channel
  */
 penny_pub_react.pubnub.init = (function penny_pub_react$pubnub$init(atom_var){
-penny_pub_react.pubnub.PUBNUB_demo = PUBNUB.init(penny_pub_react.pubnub.pubInit);
+penny_pub_react.pubnub.PUBNUB_demo = window.PUBNUB.init(penny_pub_react.pubnub.pubInit);
 
-penny_pub_react.pubnub.subscribe_obj = (function (){var obj19127 = {"channel":penny_pub_react.pubnub.channel_name,"message":(function (m){
+penny_pub_react.pubnub.subscribe_obj = (function (){var obj19177 = {"channel":penny_pub_react.pubnub.channel_name,"message":(function (m){
 cljs.core.reset_BANG_.call(null,atom_var,m);
 
 return console.log(m);
 })};
-return obj19127;
+return obj19177;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_obj);
@@ -23,8 +23,8 @@ return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subsc
  * Send a message to the channel
  */
 penny_pub_react.pubnub.send_message = (function penny_pub_react$pubnub$send_message(message){
-penny_pub_react.pubnub.message_obj = (function (){var obj19131 = {"channel":penny_pub_react.pubnub.channel_name,"message":message};
-return obj19131;
+penny_pub_react.pubnub.message_obj = (function (){var obj19181 = {"channel":penny_pub_react.pubnub.channel_name,"message":message};
+return obj19181;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.publish(penny_pub_react.pubnub.message_obj);

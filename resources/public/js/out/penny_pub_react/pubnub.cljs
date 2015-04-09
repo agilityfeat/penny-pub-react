@@ -14,7 +14,7 @@
 (defn init 
 	"Init the PubNub Object, and subscribe to the channel"
 	[atom-var]
-	(def PUBNUB_demo (.init js/PUBNUB pubInit))
+	(def PUBNUB_demo (.PUBNUB.init js/window pubInit))
 	(def subscribe-obj (js-obj  "channel" channel-name 
 							    "message" (fn [m] 
 		  										(reset! atom-var m)
