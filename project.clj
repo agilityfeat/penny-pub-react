@@ -56,7 +56,7 @@
     {:source-paths ["src-cljs"]
      :compiler
      {:output-dir "resources/public/js/out"
-      :externs ["react/externs/react.js" "lib/externs.js"] 
+      :externs ["react/externs/react.js" "external-lib/externs.js"] 
       :optimizations :none
       :output-to "resources/public/js/app.js"
       :pretty-print true}}}}
