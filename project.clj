@@ -56,7 +56,7 @@
     {:source-paths ["src-cljs"]
      :compiler
      {:output-dir "resources/public/js/out"
-      :externs ["react/externs/react.js"]
+      :externs ["react/externs/react.js" "lib/externs.js"]
       :optimizations :none
       :output-to "resources/public/js/app.js"
       :pretty-print true}}}}
@@ -71,7 +71,8 @@
                :builds
                {:app
                 {:source-paths ["env/prod/cljs"]
-                 :compiler {:optimizations :advanced :pretty-print false}}}} 
+                 :compiler {:optimizations :advanced 
+                            :pretty-print false}}}} 
              
              :aot :all}
    :dev {:dependencies [[ring-mock "0.1.5"]
