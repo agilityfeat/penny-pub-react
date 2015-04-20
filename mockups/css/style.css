@@ -1,0 +1,494 @@
+body{
+  background: #f3f3f3;
+}
+.floatClear{
+  float: none;
+  clear: both;
+  width: 100%;
+}
+a{
+  color: #FD9000;
+}
+a:hover{
+  color: #ec6f00;
+}
+.navbar{
+  margin-bottom: 0;
+}
+.navbar-brand i{
+  font-size: 24px;
+  vertical-align: middle;
+}
+.navbar-toggle .icon-bar{
+  background: #FD9000;
+}
+.instructions-wrap{
+  background: #ffe100;
+  padding: 40px 0;
+  text-align: center;
+}
+.instructions-wrap i.icon-coins,
+.instructions-wrap i.icon-collaboration{
+  font-size: 60px;
+  margin: 20px 0;
+}
+.instructions-wrap i.icon-bitcoin-stack{
+  font-size: 100px;
+  margin: 20px 0;
+}
+
+.instructions-wrap h1,
+.instructions-wrap h2{
+  text-align: center;
+  font-size: 38px;
+  margin: 10px auto 15px;
+}
+
+.instructions-wrap h2{
+  font-size: 20px;
+  line-height: 30px;
+}
+.instructions-wrap h1 span,
+.instructions-wrap h2 span{
+  display: block;
+  font-size: 90%;
+  font-style: italic;
+}
+
+.instructions-wrap .separ{
+  width: 120px;
+  height: 2px;
+  margin: 10px auto;
+  background: #333333;
+}
+.instructions-wrap p{
+  text-align: center;
+}
+.instructions-wrap .form-group{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.instructions-wrap .form-group input{
+  display: inline-block;
+  width: 240px;
+  padding: 0 10px;
+  margin: 0 5px;
+  height: 50px;
+  line-height: 50px;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid #333;
+  font-size: 20px;
+}
+.instructions-wrap .form-group input[type='button']{
+  background: none;
+  transition: all 0.2s;
+}
+.instructions-wrap .form-group input[type='button']:hover{
+  background: #333;
+  color: #fff;
+}
+
+.instructions-wrap .copyright{
+  font-size: 11px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.instructions-wrap .url-wrap{
+  display: block;
+  margin: 0 auto 10px;
+  font-size: 120%;
+  font-style: italic;
+  color: #FC371E;
+}
+.instructions-wrap .people-joined{
+  display: inline-block;
+  width: 240px;
+  padding: 0 10px;
+  margin: 0 5px;
+  height: 50px;
+  line-height: 50px;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid #333;
+  font-size: 20px;
+  font-style: italic;
+}
+.instructions-wrap .people-joined .num-p{
+  font-weight: bold;
+  color: #000;  
+}
+.instructions-wrap .people-joined-list{
+  text-align: center;
+  font-size: 85%;
+  color: #616161;
+  margin-top:6px; 
+}
+.instructions-wrap .people-joined-list strong,
+.instructions-wrap .people-joined-list span{
+  display: inline-block;
+  margin: 0 8px 0 0;
+}
+.instructions-wrap .people-joined-list span i{
+  margin-right: 2px;
+}
+
+.instructions-wrap .team-members-in{
+  margin-bottom: 20px;
+  font-size: 16px;
+  
+}
+.instructions-wrap .team-members-in .plyrs{
+  display: inline-block;
+  vertical-align: top; 
+  font-weight: bold;
+}
+.instructions-wrap .team-members-in .list-online{
+  display: inline-block;
+  vertical-align: top; 
+  padding: 0;
+  margin: 0;
+}
+.instructions-wrap .team-members-in .list-online li{
+  list-style: none;
+  color: #555;
+}
+.instructions-wrap .team-members-in .list-online li.active{
+  list-style: none;
+  color: #000
+}
+.instructions-wrap .team-members-in .list-online li i{
+  margin-right: 5px;
+}
+.instructions-wrap .batch{
+  text-align: center;
+  margin-top: 20px;
+}
+.instructions-wrap .batch span.title{
+  display: inline-block;
+  vertical-align: middle; 
+  font-weight: bold;
+  text-align: center;
+  line-height: 24px;
+  font-size: 18px;
+  margin-right: 10px;
+}
+.instructions-wrap .batch .batch-size{
+  display: inline-block;
+  vertical-align: middle; 
+  padding: 0;
+  margin: 0;
+}
+.instructions-wrap .batch .batch-size input{
+ display: block;
+ width: 100px;
+ margin: 0;
+ outline: none;
+ border: none;
+ padding: 0;
+ text-align: center;
+ height: 40px;
+ line-height: 1; 
+ border: 1px solid #333;
+}
+.instructions-wrap .batch .batch-size input.top{
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom: none;
+}
+.instructions-wrap .batch .batch-size input.bottom{
+  -webkit-border-bottom-left-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+
+.game-on{
+  padding: 70px 20px 40px;
+  background: #ffe100;
+  position: relative;
+}
+.game-on .grid{
+  position: relative;  
+}
+.game-on .grid{
+  max-width: 640px;
+  margin: 0 auto;
+}
+.game-on .grid .panel-wrap{
+  width: 50%;
+  height: 320px;
+  padding-bottom: 30px;
+  float: left;
+  border: 1px solid #333;
+  display: table;
+  position: relative;
+  overflow: hidden;
+}
+.game-on .grid .panel-wrap .coin-table{
+  padding: 30px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.game-on .grid .panel-wrap.top-left{
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+}
+.game-on .grid .panel-wrap.top-right{
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  border-left:none;
+}
+.game-on .grid .panel-wrap.bottom-left{
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-top-bottom-radius: 6px;
+  border-top: none;
+}
+.game-on .grid .panel-wrap.bottom-right{
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+  border-left:none;
+  border-top: none;
+}
+.game-on .grid .panel-wrap .footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;  
+  width: 100%;
+  background: #333;
+}
+.game-on .grid .panel-wrap .footer .player-name{
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  color: #FFE100;
+  padding: 3px 0;
+}
+.game-on .grid .panel-wrap .player-controls{
+  display: none;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  color: #FFE100;
+  border-bottom: 1px solid #424242;
+  padding: 3px 0;
+}
+.game-on .grid .panel-wrap .player-controls input{
+  display: inline-block;
+  width: 80px;
+  padding: 0 10px;
+  margin: 0 5px;
+  height: 25px;
+  line-height: 25px;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #6E6100;
+  font-size: 14px;
+  color: #6E6100;
+  background: none;
+  cursor: not-allowed;
+}
+.game-on .grid .panel-wrap .player-controls input.active{
+  cursor: pointer;
+  border-color: #FFE100;
+  color: #FFE100;
+}
+.game-on .grid .panel-wrap .player-controls input.active:hover{
+  border: 1px solid #fff;
+  color: #fff;
+}
+.game-on .grid .panel-wrap .player-controls.active{
+  display: block;
+}
+.game-on .timer{
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  height: 30px;
+  width: 220px;
+  margin-left: -110px;
+  line-height: 30px;
+  text-align: center;
+  background: #333;
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  color: #FFE100;
+}
+
+/*coins*/
+.circle div {border-radius: 50%; }
+.circle div h2 {padding-top: 3em; text-align: center; }
+
+/*
+flipping stuff
+*/
+.panel {
+  display: inline-block;
+	background: none;
+	width: 30px;
+	height:30px;
+	margin: 5px;
+	position: relative;
+	text-align: center;
+  line-height: 35px;
+  font-size: 35px;
+
+	-webkit-perspective: 600px;
+	-moz-perspective: 600px;
+					perspective: 600px;
+}
+/* -- make sure to declare a default for every property that you want animated -- */
+/* -- general styles, including Y axis rotation -- */
+.panel .front {
+	float: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 900;
+	width: inherit;
+	height: inherit;
+
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+		 -moz-transform: rotateX(0deg) rotateY(0deg);
+					transform: rotateX(0deg) rotateY(0deg);
+
+	-webkit-transform-style: preserve-3d;
+		 -moz-transform-style: preserve-3d;
+					transform-style: preserve-3d;
+
+	-webkit-backface-visibility: hidden;
+		 -moz-backface-visibility: hidden;
+					backface-visibility: hidden;
+
+	/* -- transition is the magic sauce for animation -- */
+	-webkit-transition: all .4s ease-in-out;
+					transition: all .4s ease-in-out;
+}
+.panel.flip .front {
+	z-index: 900;
+	box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+
+	-webkit-transform: rotateY(180deg);
+		 -moz-transform: rotateY(180deg);
+					transform: rotateY(180deg);
+}
+
+.panel .back {
+	float: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 800;
+	width: inherit;
+	height: inherit;
+
+	-webkit-transform: rotateY(-180deg);
+		 -moz-transform: rotateY(-179deg); /* setting to 180 causes an unnatural-looking half-flip */
+					transform: rotateY(-179deg);
+
+	-webkit-transform-style: preserve-3d;
+		 -moz-transform-style: preserve-3d;
+					transform-style: preserve-3d;
+
+	-webkit-backface-visibility: hidden;
+		 -moz-backface-visibility: hidden;
+					backface-visibility: hidden;
+
+	/* -- transition is the magic sauce for animation -- */
+	-webkit-transition: all .4s ease-in-out;
+					transition: all .4s ease-in-out;
+}
+
+.panel.flip .back {
+	z-index: 1000;
+
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+		 -moz-transform: rotateX(0deg) rotateY(0deg);
+					transform: rotateX(0deg) rotateY(0deg);
+
+}
+
+/* -- X axis rotation for click panel -- */
+.click .front {
+	cursor: pointer;
+	-webkit-transform: rotateX(0deg);
+		 -moz-transform: rotateX(0deg);
+					transform: rotateX(0deg);
+}
+.click.flip .front {
+	-webkit-transform: rotateX(180deg);
+		 -moz-transform: rotateX(180deg);
+					transform: rotateX(180deg);
+}
+.click .back {
+	cursor: pointer;
+	-webkit-transform: rotateX(-180deg);
+		 -moz-transform: rotateX(-180deg);
+					transform: rotateX(-180deg);
+}
+.click.flip .back {
+	-webkit-transform: rotateX(0deg);
+		 -moz-transform: rotateX(0deg);
+					transform: rotateX(0deg);
+}
+
+
+
+/*Responsiveness*/
+@media screen and (max-width: 510px) {
+  .game-on .grid .panel-wrap{
+    padding-bottom: 60px;
+  }
+  .game-on .grid .panel-wrap .footer .player-name,
+  .game-on .grid .panel-wrap .player-controls{
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 410px) {
+  .game-on .grid .panel-wrap{
+    width: 100%;
+    border: 1px solid #333 !important;
+    border-radius: 0 !important;
+  }
+  .game-on .grid .panel-wrap:first-child{
+    -webkit-border-top-left-radius: 6px !important;
+    -webkit-border-top-right-radius: 6px !important;
+    -moz-border-radius-topleft: 6px !important;
+    -moz-border-radius-topright: 6px !important;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+  }
+  .game-on .grid .panel-wrap:last-child{
+    -webkit-border-bottom-right-radius: 6px !important;
+    -webkit-border-bottom-left-radius: 6px !important;
+    -moz-border-radius-bottomright: 6px !important;
+    -moz-border-radius-bottomleft: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;  
+  }
+  .panel {
+  	width: 40px;
+  	height:40px;
+  	font-size: 40px;
+  	line-height: 40px;
+  }
+}
