@@ -12,6 +12,10 @@
 (def team-name (atom ""))
 (def team-slug (atom ""))
 (def user-name (atom ""))
+(def player-number (atom ""))
+(def batch-size (atom ""))
+(def total-coins (atom ""))
+
 
 
 ;; ----------------------------------------------------------------------------------------------------
@@ -80,7 +84,7 @@
                                   :placeholder "Team Name" 
                                   :onClick (fn [] 
                                                   (convert-team-name-to-slug)
-                                                  (pubnub/init)
+                                                  (pubnub/connect)
                                                   (pubnub/suscribe-moderator @team-name @team-slug)
                                                   (session/put! :page :step2))
                                   :value "Start Game"}]]]
@@ -113,9 +117,9 @@
       [:div.row
         [:div.col-md-8.col-md-offset-2
           [:i.icon-collaboration]
-          [:h1 [:span.title "Team:"] "[Team Name]"]
+          [:h1 [:span.title "Team:"] @team-name]
           [:div.separ]
-          [:h2 [:span.title "You are player [#]"] [:span "of [total] max"]]
+          [:h2 [:span.title (str "You are player " @player-number)] [:span "of 4 max"]]
           [:p "Type your name:"]     
           [:form 
             [:div.form-group
@@ -127,25 +131,70 @@
               [:input.start-game {:type "button" 
                                   :id "btnReady" 
                                   :onClick (fn [] 
-                                                  (session/put! :page :step2))
+                                                  (session/put! :user-name @user-name)
+                                                  (pubnub/set-user-name @team-slug @user-name) 
+                                                  (session/put! :page :step4))
                                   :value "I'm Ready"}]]]
           [copyright]]]]])          
+
+;; STEP 4
+(defn step4-page []
+  [:div.instructions-wrap
+    [:div.container
+      [:div.row
+        [:div.col-md-8.col-md-offset-2
+          [:i.icon-bitcoin-stack]
+          [:h1 "Lets Flip!"]
+          [:div.separ]
+          [:h2 @team-name]
+          [:div.team-members-in 
+            [:span.plyrs "Players:"]
+            [:ul.list-online
+              [:li.active [:i.icon-user-check] "[member name]"]
+              [:li [:i.icon-user-block] "[member name]"]
+              [:li.active [:i.icon-user-check] "[member name]"]
+              [:li [:i.icon-user-block] "[member name]"]]]
+          [:p "Please wait while the organizer explains the game to you and then starts the round."]         
+          [:div.batch
+            [:span.title "Total coins" [:br] "batch size"]
+            [:div.batch-size
+                [:input.top {:type "text" 
+                                    :id "total_coins" 
+                                    :key "total_coins"
+                                    :on-change #(reset! total-coins (-> % .-target .-value))
+                                    :placeholder "Type Size"}]
+                [:input.bottom {:type "text" 
+                                    :id "batch_size" 
+                                    :key "batch_size"
+                                    :on-change #(reset! batch-size (-> % .-target .-value))
+                                    :placeholder "Type Size"}]]
+          [:form 
+            [:div.form-group
+              [:input.start-game {:type "button" 
+                                  :id "btnStart" 
+                                  :onClick (fn [] 
+                                                  
+                                                  (session/put! :page :step4))
+                                  :value "Start Flipping"}]]]
+          [copyright]]]]]])                    
 
 ;; ----------------------------------------------------------------------------------------------------
 ;; Declaration of routes
 ;; ----------------------------------------------------------------------------------------------------
 
 
+
 (def pages
   {:home home-page 
    :step2 step2-page
-   :step3 step3-page})
+   :step3 step3-page
+   :step4 step4-page})
 
 (defn page []
   [(pages (session/get :page))])
 
 (defroute "/" [] (session/put! :page :home))
-(defroute "/#step-02" [] (session/put! :page :step2))
+
 
 
 (defn mount-components []
@@ -157,9 +206,10 @@
     (session/put! :page :home)
     (do 
         (session/put! :page :step3)
-        (pubnub/init)
+        (pubnub/connect)
         (reset! team-slug (string/replace (.-location.pathname js/window) "/team/" ""))
-        (pubnub/suscribe-user @team-slug))))
+        (pubnub/suscribe-user @team-slug)
+        (pubnub/get-state @team-slug team-name player-number))))
 
 ;; ----------------------------------------------------------------------------------------------------
 ;; Init function

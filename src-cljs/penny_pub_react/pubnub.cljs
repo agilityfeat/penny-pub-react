@@ -8,7 +8,7 @@
 ;;******* PubNub functions *******
 
 ;;Init Pubnub function 
-(defn init 
+(defn connect 
 	"Init the PubNub Object, and subscribe to the channel"
 	[]
 	(def PUBNUB_demo (.PUBNUB.init js/window pubInit)))
@@ -16,11 +16,11 @@
 (defn suscribe-moderator [channel-name channel-slug]
 	(def subscribe-moderator-obj (js-obj  "channel" channel-slug
 								"noheresync" "true"
+								"uuid" "moderator-user"
 								"message" (fn [m] 
 		  										(.log js/console m))
 								"presence" (fn [m] 
-												(js/alert "entro3")
-		  										(.log js/console m))
+												(.log js/console m))
 								 "state" (js-obj "username" "moderador" 
 								 				 "channel_name" channel-name)))
     (.subscribe PUBNUB_demo subscribe-moderator-obj))
@@ -31,13 +31,30 @@
 									 "message" (fn [m] 
 		  										(.log js/console m))
 									 "presence" (fn [m] 
-									 			(js/alert "entro2")
-		  										(.log js/console "init")
+									 			(.log js/console "init")
 		  										(.log js/console m)
 		  										(.log js/console "fin"))
 								 	 "state" (js-obj "username" "new-player")))
-    (.subscribe PUBNUB_demo subscribe-user-obj))   
-	
+    (.subscribe PUBNUB_demo subscribe-user-obj))  
+
+ (defn get-state [channel-slug team-name player-number]
+	(def get-state-obj (js-obj  "channel" channel-slug
+								"state" "true"
+								"error" (fn [m] 
+		  								(.log js/console m))
+								"callback" (fn [m] 
+										(reset! player-number (- m.uuids.length 1))
+										(reset! team-name (.-state.channel_name (aget m.uuids 0))))))
+    (.here-now PUBNUB_demo get-state-obj))      
+
+ (defn set-user-name [channel-slug user-name]
+	(def set-user-obj (js-obj  "channel" channel-slug
+								"error" (fn [m] 
+		  								(.log js/console m))
+								"callback" (fn [m] 
+										(.log js/console m))
+								"state" (js-obj "username" user-name)))		
+    (.state PUBNUB_demo set-user-obj))  	
 
 ;;Send message function
 (defn send-message 

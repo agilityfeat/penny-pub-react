@@ -5,49 +5,71 @@ penny_pub_react.pubnub.pubInit = new cljs.core.PersistentArrayMap(null, 2, [new 
 /**
  * Init the PubNub Object, and subscribe to the channel
  */
-penny_pub_react.pubnub.init = (function penny_pub_react$pubnub$init(){
+penny_pub_react.pubnub.connect = (function penny_pub_react$pubnub$connect(){
 penny_pub_react.pubnub.PUBNUB_demo = window.PUBNUB.init(penny_pub_react.pubnub.pubInit);
 });
 penny_pub_react.pubnub.suscribe_moderator = (function penny_pub_react$pubnub$suscribe_moderator(channel_name,channel_slug){
-penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj26406 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj24608 = {"channel":channel_slug,"noheresync":"true","uuid":"moderator-user","message":(function (m){
 return console.log(m);
 }),"presence":(function (m){
-alert("entro3");
-
 return console.log(m);
-}),"state":(function (){var obj26408 = {"username":"moderador","channel_name":channel_name};
-return obj26408;
+}),"state":(function (){var obj24610 = {"username":"moderador","channel_name":channel_name};
+return obj24610;
 })()};
-return obj26406;
+return obj24608;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_moderator_obj);
 });
 penny_pub_react.pubnub.suscribe_user = (function penny_pub_react$pubnub$suscribe_user(channel_slug){
-penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj26414 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj24616 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 return console.log(m);
 }),"presence":(function (m){
-alert("entro2");
-
 console.log("init");
 
 console.log(m);
 
 return console.log("fin");
-}),"state":(function (){var obj26416 = {"username":"new-player"};
-return obj26416;
+}),"state":(function (){var obj24618 = {"username":"new-player"};
+return obj24618;
 })()};
-return obj26414;
+return obj24616;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_user_obj);
+});
+penny_pub_react.pubnub.get_state = (function penny_pub_react$pubnub$get_state(channel_slug,team_name,player_number){
+penny_pub_react.pubnub.get_state_obj = (function (){var obj24622 = {"channel":channel_slug,"state":"true","error":(function (m){
+return console.log(m);
+}),"callback":(function (m){
+cljs.core.reset_BANG_.call(null,player_number,(m.uuids.length - (1)));
+
+return cljs.core.reset_BANG_.call(null,team_name,(m.uuids[(0)]).state.channel_name);
+})};
+return obj24622;
+})();
+
+return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.get_state_obj);
+});
+penny_pub_react.pubnub.set_user_name = (function penny_pub_react$pubnub$set_user_name(channel_slug,user_name){
+penny_pub_react.pubnub.set_user_obj = (function (){var obj24628 = {"channel":channel_slug,"error":(function (m){
+return console.log(m);
+}),"callback":(function (m){
+return console.log(m);
+}),"state":(function (){var obj24630 = {"username":user_name};
+return obj24630;
+})()};
+return obj24628;
+})();
+
+return penny_pub_react.pubnub.PUBNUB_demo.state(penny_pub_react.pubnub.set_user_obj);
 });
 /**
  * Send a message to the channel
  */
 penny_pub_react.pubnub.send_message = (function penny_pub_react$pubnub$send_message(message,channel_slug){
-penny_pub_react.pubnub.message_obj = (function (){var obj26420 = {"channel":channel_slug,"message":message};
-return obj26420;
+penny_pub_react.pubnub.message_obj = (function (){var obj24634 = {"channel":channel_slug,"message":message};
+return obj24634;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.publish(penny_pub_react.pubnub.message_obj);
