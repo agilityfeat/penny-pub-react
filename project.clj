@@ -22,9 +22,7 @@
                  [reagent "0.5.0"]
                  [reagent-forms "0.5.0"]
                  [reagent-utils "0.1.4"]
-                 [secretary "1.2.3"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [cljs-ajax "0.3.10"]]
+                 [secretary "1.2.3"]]
 
   :min-lein-version "2.0.0"
   :uberjar-name "penny-pub-react.jar"

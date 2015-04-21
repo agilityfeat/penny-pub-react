@@ -4,12 +4,12 @@
             [clojure.java.io :as io]))
 
 (defn home-page []
-  (layout/render
-    "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
+  (layout/render "base.html"))
 
-(defn about-page []
-  (layout/render "about.html"))
+(defn team-home-page [team-slug]
+  (layout/render "base.html" {:team-slug team-slug}))
+
 
 (defroutes home-routes
   (GET "/" [] (home-page))
-  (GET "/about" [] (about-page)))
+  (GET "/team/:team-slug" [team-slug] (team-home-page team-slug)))
