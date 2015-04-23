@@ -55,9 +55,9 @@
      :compiler
      {:output-dir "resources/public/js/out"
       :externs ["react/externs/react.js" "external-lib/externs.js"] 
-      :optimizations :none
+      :optimizations :advanced
       :output-to "resources/public/js/app.js"
-      :pretty-print true}}}}
+      :pretty-print false}}}}
   
   
   :profiles
@@ -69,7 +69,7 @@
                :builds
                {:app
                 {:source-paths ["env/prod/cljs"]
-                 :compiler {:optimizations :simple 
+                 :compiler {:optimizations :advanced 
                             :pretty-print false}}}} 
              
              :aot :all}
@@ -77,25 +77,15 @@
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.7.0"]
                         [leiningen "2.5.1"]
-                        [figwheel "0.2.5"]
                         [weasel "0.6.0"]
                         [com.cemerick/piggieback "0.2.0"]
                         [org.clojure/tools.nrepl "0.2.10"]]
          :source-paths ["env/dev/clj"]
          
-         :plugins [[lein-figwheel "0.2.5"]]
-         
           :cljsbuild
           {:builds
            {:app
-            {:source-paths ["env/dev/cljs"] :compiler {:source-map true}}}} 
-         
-         
-         :figwheel
-         {:http-server-root "public"
-          :server-port 3449
-          :css-dirs ["resources/public/css"]
-          :ring-handler penny-pub-react.handler/app}
+            {:source-paths ["env/dev/cljs"]}}} 
          
          
          :repl-options {:init-ns penny-pub-react.repl}

@@ -174,7 +174,7 @@
             [:div.front.icon-bitcoin-head] [:div.back.icon-bitcoin-tales]])]
           
 
-          
+
         [:div.footer
           (when (or true (= number @player-number))
             [:div.player-controls.active
@@ -375,7 +375,7 @@
     
 
 (defn step2-page []
-  (if (or  (= "ready" (:state @player1)) (= "ready" (:state @player2)) (= "ready" (:state @player3)) (= "ready" (:state @player4)))
+  (if (and  (= "ready" (:state @player1)) (= "ready" (:state @player2)) (= "ready" (:state @player3)) (= "ready" (:state @player4)))
     [step4-page]
     (do 
       [:div.instructions-wrap

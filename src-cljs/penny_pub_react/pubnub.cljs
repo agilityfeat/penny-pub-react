@@ -173,8 +173,6 @@
 									 				(if (string/blank? @player-number)
 									 					(do
 									 						(def my-obj (js->clj m))
-									 						(js/alert "presence")
-									 						(js/alert (get my-obj "occupancy"))
 									 						(reset! player-number (- (js/parseInt(get my-obj "occupancy")) 1))
 									 						(set-state channel-slug (js-obj "username" "new-player"
 									 														"player_number" @player-number))))
