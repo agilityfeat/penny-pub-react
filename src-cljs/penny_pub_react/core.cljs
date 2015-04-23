@@ -176,7 +176,7 @@
 
 
         [:div.footer
-          (when (or true (= number @player-number))
+          (when (= number @player-number)
             [:div.player-controls.active
             [:span "Batch " [:strong @qty-to-send " / " @batch-size]]
             [:input.game-btn {:type "button"
