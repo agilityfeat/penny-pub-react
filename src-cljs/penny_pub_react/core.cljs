@@ -149,7 +149,7 @@
 
 (defn draw-coin-panel [player number]
   [:div
-    [:div.coin-table {:class (when (= number @player-number) "coin-table-player")}
+    [:div.coin-table
           (for [x (range 0 (:coins @player))]
             [:div.click.panel.circle {:key (str "p_" (:coins @player) number x)
                                       :id (str "p_" (:coins @player) number x)
@@ -190,14 +190,14 @@
           [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]])
       
       [:div.grid
-        [:div.panel-wrap.top-left
+        [:div.panel-wrap.top-left {:class (when (= 1 @player-number) "coin-table-player")}
           [draw-coin-panel player1 1]]
-        [:div.panel-wrap.top-right
+        [:div.panel-wrap.top-right {:class (when (= 2 @player-number) "coin-table-player")}
           [draw-coin-panel player2 2]]
-        [:div.panel-wrap.bottom-left
+        [:div.panel-wrap.bottom-left {:class (when (= 3 @player-number) "coin-table-player")}
           [draw-coin-panel player3 3]]
 
-        [:div.panel-wrap.bottom-right
+        [:div.panel-wrap.bottom-right {:class (when (= 4 @player-number) "coin-table-player")}
           [draw-coin-panel player4 4]]]
       [:div.floatClear]])
 

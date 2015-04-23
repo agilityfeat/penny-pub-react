@@ -235,15 +235,18 @@ a:hover{
   position: relative;
   overflow: hidden;
 }
+
+.game-on .grid .panel-wrap-player {
+  background: #ffffa3 !important;
+ } 
+
 .game-on .grid .panel-wrap .coin-table{
   padding: 30px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
-.game-on .grid .panel-wrap .coin-table-player {
-  background: #FFFA00 !important;
- } 
+
 .game-on .grid .panel-wrap.top-left{
   -webkit-border-top-left-radius: 6px;
   -moz-border-radius-topleft: 6px;
