@@ -162,15 +162,16 @@
                                       :id (str "p_" (:coins @player) number x)
                                       :class "click panel circle"
                                       :onClick (fn []
-                                                    (def subtract? (flip (str "p_" (:coins @player) number x)))
-                                                    (if (= subtract? false)
-                                                      (do 
-                                                        (if (and (< (js/parseInt @qty-to-send) (:coins @player)) (< (js/parseInt @qty-to-send) (js/parseInt @batch-size)))
-                                                          (reset! qty-to-send (inc @qty-to-send))
-                                                          (flip (str "p_" (:coins @player) number x))))
-                                                      
+                                                    (when (= number @player-number)
+                                                      (def subtract? (flip (str "p_" (:coins @player) number x)))
+                                                      (if (= subtract? false)
+                                                        (do 
+                                                          (if (and (< (js/parseInt @qty-to-send) (:coins @player)) (< (js/parseInt @qty-to-send) (js/parseInt @batch-size)))
+                                                            (reset! qty-to-send (inc @qty-to-send))
+                                                            (flip (str "p_" (:coins @player) number x))))
+                                                        
 
-                                                        (reset! qty-to-send (dec @qty-to-send))))}
+                                                          (reset! qty-to-send (dec @qty-to-send)))))}
             [:div.front.icon-bitcoin-head] [:div.back.icon-bitcoin-tales]])]
           
 
