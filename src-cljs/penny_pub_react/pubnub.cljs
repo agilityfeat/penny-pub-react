@@ -179,8 +179,6 @@
 									 "connect" (fn [m]
 									 				(reset! connected? true)	
 									 				(.log js/console "init connect suscribe-user") 
-									 				(if (string/blank? @player-number)
-									 					(restore-player-data channel-slug player-number player-name))
 									 				(get-team-name channel-slug team-name player-number)
 									 				(.log js/console "end connect suscribe-user") )
 								 	 "state" (js-obj "username" "new-player")))
