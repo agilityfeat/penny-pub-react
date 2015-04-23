@@ -190,14 +190,14 @@
           [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]])
       
       [:div.grid
-        [:div.panel-wrap.top-left {:class (when (= 1 @player-number) "coin-table-player")}
+        [:div.panel-wrap.top-left {:class (when (= 1 @player-number) "panel-wrap-player")}
           [draw-coin-panel player1 1]]
-        [:div.panel-wrap.top-right {:class (when (= 2 @player-number) "coin-table-player")}
+        [:div.panel-wrap.top-right {:class (when (= 2 @player-number) "panel-wrap-player")}
           [draw-coin-panel player2 2]]
-        [:div.panel-wrap.bottom-left {:class (when (= 3 @player-number) "coin-table-player")}
+        [:div.panel-wrap.bottom-left {:class (when (= 3 @player-number) "panel-wrap-player")}
           [draw-coin-panel player3 3]]
 
-        [:div.panel-wrap.bottom-right {:class (when (= 4 @player-number) "coin-table-player")}
+        [:div.panel-wrap.bottom-right {:class (when (= 4 @player-number) "panel-wrap-player")}
           [draw-coin-panel player4 4]]]
       [:div.floatClear]])
 
