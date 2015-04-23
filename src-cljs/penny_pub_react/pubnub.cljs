@@ -175,7 +175,7 @@
 									 						(def my-obj (js->clj m))
 									 						(js/alert "presence")
 									 						(js/alert (get my-obj "occupancy"))
-									 						(reset! player-number (- m.occupancy 1))
+									 						(reset! player-number (- (js/parseInt(get my-obj "occupancy")) 1))
 									 						(set-state channel-slug (js-obj "username" "new-player"
 									 														"player_number" @player-number))))
 									 					(update-players-data channel-slug player1 player2 player3 player4))
