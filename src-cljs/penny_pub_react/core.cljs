@@ -162,6 +162,8 @@
                                       :id (str "p_" (:coins @player) number x)
                                       :class "click panel circle"
                                       :onClick (fn []
+                                                    (js/alert number)
+                                                    (js/alert @player-number)
                                                     (when (= number @player-number)
                                                       (def subtract? (flip (str "p_" (:coins @player) number x)))
                                                       (if (= subtract? false)
