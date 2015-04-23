@@ -172,8 +172,9 @@
 									 				
 									 				(if (string/blank? @player-number)
 									 					(do
-									 						(def my-obj (js->clj m))
-									 						(reset! player-number (- (get my-obj "occupancy") 1))
+									 						(def my-obj (js->clj m) :keywordize-keys true)
+									 						(js/alert (:ocuppancy my-obj))
+									 						(reset! player-number (- (js/parseInt (:ocuppancy my-obj)) 1))
 									 						(set-state channel-slug (js-obj "username" "new-player"
 									 														"player_number" @player-number))))
 									 					(update-players-data channel-slug player1 player2 player3 player4))
