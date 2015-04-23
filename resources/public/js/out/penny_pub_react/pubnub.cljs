@@ -173,6 +173,10 @@
 									 				(if (string/blank? @player-number)
 									 					(do
 									 						(js/alert "presence" m.occupancy)
+									 						(js/alert m.occupancy)
+									 						(.log js/console "///")
+									 						(.log js/console m)
+
 									 						(reset! player-number (- m.occupancy 1))
 									 						(set-state channel-slug (js-obj "username" "new-player"
 									 														"player_number" @player-number))))
