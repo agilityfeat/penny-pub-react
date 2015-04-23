@@ -96,14 +96,7 @@
       
        [:div.container
         [:div.navbar-header
-         [:button {:class "navbar-toggle collapsed"
-                   :type "button"
-                   :data-toggle "collapse"
-                   :data-target ".bs-navbar-collapse"}
-           [:span.sr-only "Toggle navigation"]        
-           [:span.icon-bar]        
-           [:span.icon-bar]        
-           [:span.icon-bar]]  
+         [:a.navbar-toggle.collapsed {:href "#/"}  @player-name]
          [:a.navbar-brand {:href "#/"} [:i.icon-bitcoin-stack] "Remotely Flipped"]]
         [:nav.collapse.navbar-collapse.bs-navbar-collapse 
            [:ul.nav.navbar-nav.navbar-right
