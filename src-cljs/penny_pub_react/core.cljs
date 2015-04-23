@@ -146,6 +146,7 @@
                                                   (session/put! :page :step2))
                                   :value "Start Game"}]]]
           [copyright]]]]])
+
 (defn flip [id]
   (def img (.getElementById js/document id))
   (if (= -1 (.indexOf (.-className img) "flip"))
@@ -157,14 +158,17 @@
   [:div
     [:div.coin-table
           (for [x (range 0 (:coins @player))]
-            [:div.click.panel.circle {:key (str "p_" number x)
-                                      :id (str "p_" number x)
+            [:div.click.panel.circle {:key (str "p_" (:coins @player) number x)
+                                      :id (str "p_" (:coins @player) number x)
+                                      :class "click panel circle"
                                       :onClick (fn []
-                                                    (def subtract? (flip (str "p_" number x)))
-                                                    (if (= subtract? true)
+                                                    (def subtract? (flip (str "p_" (:coins @player) number x)))
+                                                    (if (= subtract? false)
+                                                      (do 
+                                                        (if (and (< (js/parseInt @qty-to-send) (:coins @player)) (< (js/parseInt @qty-to-send) (js/parseInt @batch-size)))
+                                                          (reset! qty-to-send (inc @qty-to-send))
+                                                          (flip (str "p_" (:coins @player) number x))))
                                                       
-                                                      (if (and (< (js/parseInt @qty-to-send) (:coins @player)) (< (js/parseInt @qty-to-send) (js/parseInt @batch-size)))
-                                                        (reset! qty-to-send (inc @qty-to-send)))
 
                                                         (reset! qty-to-send (dec @qty-to-send))))}
             [:div.front.icon-bitcoin-head] [:div.back.icon-bitcoin-tales]])]
