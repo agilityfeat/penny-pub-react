@@ -172,9 +172,9 @@
 									 				
 									 				(if (string/blank? @player-number)
 									 					(do
-									 						(js/alert "presence" m.occupancy)
-									 						(js/alert m.occupancy)
-									 						(.log js/console "///")
+									 						(def my-obj (js->clj m))
+									 						(js/alert "presence")
+									 						(js/alert (get my-obj "occupancy"))
 									 						(.log js/console m)
 
 									 						(reset! player-number (- m.occupancy 1))

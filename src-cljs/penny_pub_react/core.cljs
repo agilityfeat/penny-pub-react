@@ -173,6 +173,8 @@
                                                         (reset! qty-to-send (dec @qty-to-send))))}
             [:div.front.icon-bitcoin-head] [:div.back.icon-bitcoin-tales]])]
           
+
+          
         [:div.footer
           (when (or true (= number @player-number))
             [:div.player-controls.active

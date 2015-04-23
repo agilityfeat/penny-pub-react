@@ -5,3 +5,5 @@ PUBNUB.unsubscribe = function() {};
 PUBNUB.here_now = function() {};
 PUBNUB.publish = function() {};
 PUBNUB.state = function() {};
+
+var m = {};
