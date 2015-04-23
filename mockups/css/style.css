@@ -241,6 +241,9 @@ a:hover{
   vertical-align: middle;
   text-align: center;
 }
+.game-on .grid .panel-wrap .coin-table-player {
+  background: #FFFA00 !important;
+ } 
 .game-on .grid .panel-wrap.top-left{
   -webkit-border-top-left-radius: 6px;
   -moz-border-radius-topleft: 6px;

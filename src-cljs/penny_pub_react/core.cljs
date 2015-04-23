@@ -149,7 +149,7 @@
 
 (defn draw-coin-panel [player number]
   [:div
-    [:div.coin-table
+    [:div.coin-table {:class (when (= number @player-number) "coin-table-player")}
           (for [x (range 0 (:coins @player))]
             [:div.click.panel.circle {:key (str "p_" (:coins @player) number x)
                                       :id (str "p_" (:coins @player) number x)
