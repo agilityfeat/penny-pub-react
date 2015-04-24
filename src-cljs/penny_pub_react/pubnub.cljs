@@ -8,8 +8,6 @@
         	  :subscribe_key "sub-c-6a41cc4c-dedf-11e4-a502-0619f8945a4f"})
 ;;******* PubNub functions *******
 
-(def my-state (atom ""))
-
 ;;Init Pubnub function 
 (defn connect 
 	"Init the PubNub Object, and subscribe to the channel"
@@ -17,15 +15,14 @@
 	(def PUBNUB_demo (.PUBNUB.init js/window pubInit)))
 
 
-
 (defn update-player
+	"Update player's username and state "
 	[player uuid]
-	(.log js/console "entro a modificar" (.-state.username uuid))
 	(swap! player assoc :username (.-state.username uuid))
-	(swap! player assoc :state "ready")
-	)
+	(swap! player assoc :state "ready"))
 
 (defn update-players-data 
+	"Update player's username and state "	
 	[channel-slug player1 player2 player3 player4]
 		(def update-players-data-obj (js-obj  "channel" channel-slug
 								"state" "true"
@@ -35,12 +32,9 @@
 		  										(.log js/console "end error update-players-data") )
 								"callback" (fn [m] 
 												(.log js/console "init callback update-players-data") 
-		  										(.log js/console m)
 		  										(doseq [uuid m.uuids]
 		  											(if-not (= "moderador" (.-state.username uuid))
   														(do 
-  															
-  															(.log js/console "entro a verificar" (.-state.player_number uuid))
   															(if (= 1 (.-state.player_number uuid)) 
   																(update-player player1 uuid))
   															(if (= 2 (.-state.player_number uuid)) 
@@ -49,11 +43,12 @@
   																(update-player player3 uuid))
   															(if (= 4 (.-state.player_number uuid)) 
   																(update-player player4 uuid)))))
-		  										(.log js/console "end callback update-players-data") 
-		  										)))
-    (.here_now PUBNUB_demo update-players-data-obj))  
+		  										(.log js/console "end callback update-players-data"))))
+    	(.here_now PUBNUB_demo update-players-data-obj))  
 
-(defn suscribe-moderator [channel-name channel-slug player1 player2 player3 player4 timers finished?]
+(defn suscribe-moderator 
+	"Update player's username and state "	
+	[channel-name channel-slug player1 player2 player3 player4 timers finished?]
 	(def subscribe-moderator-obj (js-obj  "channel" channel-slug
 								"noheresync" "true"
 								"uuid" "moderator-user"
@@ -116,20 +111,6 @@
 								"state" jsobj))		
     (.state PUBNUB_demo set-state-obj)) 
 
-(defn restore-player-data [channel-slug player-number player-name]
-	(def restore-player-data-obj (js-obj  "channel" channel-slug
-									"error" (fn [m] 
-		  								(.log js/console m))
-									"callback" (fn [m] 
-										(.log js/console "init restore-player-data")
-										(reset! player-number (.-player_number m))
-										(if-not (= (.-username m) "new-player")
-											(reset! player-name (.-username m)))
-										(.log js/console "end restore-player-data"))))		
-    (.state PUBNUB_demo restore-player-data-obj))      	
-
-    
-
 (defn suscribe-user [channel-slug team-name player-number player-name connected? player1 player2 player3 player4 playing? batch-size timers finished?]
 	(def subscribe-user-obj (js-obj  "channel" channel-slug
 									 "noheresync" "true"
@@ -184,15 +165,6 @@
 									 				(.log js/console "end connect suscribe-user") )
 								 	 "state" (js-obj "username" "new-player")))
     (.subscribe PUBNUB_demo subscribe-user-obj))  
- 
- (defn unsuscribe [channel-slug]
-	(def unsubscribe-obj (js-obj  "channel" channel-slug))
-    (.unsubscribe PUBNUB_demo unsubscribe-obj))  
- 
-
- 
-
-
 
 ;;Send message function
 (defn send-message 

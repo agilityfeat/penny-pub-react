@@ -9,21 +9,37 @@
 ;; ----------------------------------------------------------------------------------------------------
 ;; DECLARATION OF ATOMS
 ;; ----------------------------------------------------------------------------------------------------
+
+;team-data
 (def team-name (atom ""))
 (def team-slug (atom ""))
+
+
+;user-data
 (def user-name (atom ""))
 (def player-name (atom ""))
 (def player-number (atom ""))
+
+;game-data
 (def batch-size (atom 50))
 (def total-coins (atom 50))
 (def connected? (atom false))
 (def moderator? (atom false))
 (def playing? (atom false))
 (def finished? (atom false))
-(def player1 (atom {:username "waiting for player 1" :state "new" :coins 50})) 
-(def player2 (atom {:username "waiting for player 2" :state "new" :coins 0})) 
-(def player3 (atom {:username "waiting for player 3" :state "new" :coins 0})) 
-(def player4 (atom {:username "waiting for player 4" :state "new" :coins 0})) 
+
+;players
+;(def player-data (atom {:username "" :state "new" :coins 0})) 
+;(def players (atom {:player1 @player-data 
+;                    :player2 @player-data 
+;                    :player3 @player-data
+;                    :player4 @player-data }))
+(def player1 (atom {:username "" :state "new" :coins 50})) 
+(def player2 (atom {:username "" :state "new" :coins 0})) 
+(def player3 (atom {:username "" :state "new" :coins 0})) 
+(def player4 (atom {:username "" :state "new" :coins 0})) 
+
+;general atoms
 (def counter (atom 0))
 (def qty-to-send (atom 0))
 (def timers (atom {:timer 0 :timer-first 0 :timer-total 0}))
@@ -47,9 +63,6 @@
     [:strong
       (format-time time-str)]))
 
-
-
-
 (defn slug [f]
   "Replaces a filename's spaces with friendly hyphens and prepares its file extension."
   (-> f
@@ -57,9 +70,7 @@
       (string/replace " " "-")
       (string/replace #"\.(wiki|md)" "")))
 
-;convert string to slug
-(defn convert-team-name-to-slug []
-    (reset! team-slug (slug @team-name)))
+
 
 ;Return the team URL
 (defn print-team-url []
@@ -132,7 +143,7 @@
                                   :id "btnTeam" 
                                   :placeholder "Team Name" 
                                   :onClick (fn [] 
-                                                  (convert-team-name-to-slug)
+                                                  (reset! team-slug (slug @team-name))
                                                   (reset! moderator? true)
                                                   (pubnub/connect)
                                                   (pubnub/suscribe-moderator @team-name @team-slug player1 player2 player3 player4 timers finished?)
