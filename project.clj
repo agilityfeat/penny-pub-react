@@ -21,6 +21,7 @@
                  [org.clojure/clojurescript "0.0-3178" :scope "provided"]
                  [reagent "0.5.0"]
                  [reagent-forms "0.5.0"]
+                 [figwheel "0.2.5"]
                  [reagent-utils "0.1.4"]
                  [secretary "1.2.3"]]
 
@@ -55,9 +56,9 @@
      :compiler
      {:output-dir "resources/public/js/out"
       :externs ["react/externs/react.js" "external-lib/externs.js"] 
-      :optimizations :advanced
+      :optimizations :none
       :output-to "resources/public/js/app.js"
-      :pretty-print false}}}}
+      :pretty-print true}}}}
   
   
   :profiles
@@ -81,11 +82,20 @@
                         [com.cemerick/piggieback "0.2.0"]
                         [org.clojure/tools.nrepl "0.2.10"]]
          :source-paths ["env/dev/clj"]
+
+         :plugins [[lein-figwheel "0.2.5"]]
          
           :cljsbuild
           {:builds
            {:app
-            {:source-paths ["env/dev/cljs"]}}} 
+            {:source-paths ["env/dev/cljs"] :compiler {:source-map true}}}} 
+
+          :figwheel
+           {:http-server-root "public"
+            :server-port 3449
+            :css-dirs ["resources/public/css"]
+            :ring-handler penny-pub-react.handler/app}
+           
          
          
          :repl-options {:init-ns penny-pub-react.repl}
