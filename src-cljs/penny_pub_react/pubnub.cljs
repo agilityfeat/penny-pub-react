@@ -132,6 +132,7 @@
 		  												(swap! players assoc-in [0 :coins] m.total_coins)	
 		  												(reset! batch-size m.batch_size)
 		  												(reset! total-coins m.total_coins)
+		  												(reset! finished? false)
 		  												(reset! playing? true)))
 
 		  										(when (= "update_coins" m.state_game)

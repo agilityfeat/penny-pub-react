@@ -71,7 +71,7 @@ return cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.P
  * Update player's username and state
  */
 penny_pub_react.pubnub.update_players_data = (function penny_pub_react$pubnub$update_players_data(channel_slug,players){
-penny_pub_react.pubnub.update_players_data_obj = (function (){var obj31930 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.update_players_data_obj = (function (){var obj32386 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error update-players-data");
 
 console.log(m);
@@ -80,57 +80,57 @@ return console.log("end error update-players-data");
 }),"callback":(function (m){
 console.log("init callback update-players-data");
 
-var seq__31931_31935 = cljs.core.seq.call(null,m.uuids);
-var chunk__31932_31936 = null;
-var count__31933_31937 = (0);
-var i__31934_31938 = (0);
+var seq__32387_32391 = cljs.core.seq.call(null,m.uuids);
+var chunk__32388_32392 = null;
+var count__32389_32393 = (0);
+var i__32390_32394 = (0);
 while(true){
-if((i__31934_31938 < count__31933_31937)){
-var uuid_31939 = cljs.core._nth.call(null,chunk__31932_31936,i__31934_31938);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_31939.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_31939.state.player_number - (1)),uuid_31939);
+if((i__32390_32394 < count__32389_32393)){
+var uuid_32395 = cljs.core._nth.call(null,chunk__32388_32392,i__32390_32394);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_32395.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_32395.state.player_number - (1)),uuid_32395);
 } else {
 }
 
-var G__31940 = seq__31931_31935;
-var G__31941 = chunk__31932_31936;
-var G__31942 = count__31933_31937;
-var G__31943 = (i__31934_31938 + (1));
-seq__31931_31935 = G__31940;
-chunk__31932_31936 = G__31941;
-count__31933_31937 = G__31942;
-i__31934_31938 = G__31943;
+var G__32396 = seq__32387_32391;
+var G__32397 = chunk__32388_32392;
+var G__32398 = count__32389_32393;
+var G__32399 = (i__32390_32394 + (1));
+seq__32387_32391 = G__32396;
+chunk__32388_32392 = G__32397;
+count__32389_32393 = G__32398;
+i__32390_32394 = G__32399;
 continue;
 } else {
-var temp__4126__auto___31944 = cljs.core.seq.call(null,seq__31931_31935);
-if(temp__4126__auto___31944){
-var seq__31931_31945__$1 = temp__4126__auto___31944;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__31931_31945__$1)){
-var c__4884__auto___31946 = cljs.core.chunk_first.call(null,seq__31931_31945__$1);
-var G__31947 = cljs.core.chunk_rest.call(null,seq__31931_31945__$1);
-var G__31948 = c__4884__auto___31946;
-var G__31949 = cljs.core.count.call(null,c__4884__auto___31946);
-var G__31950 = (0);
-seq__31931_31935 = G__31947;
-chunk__31932_31936 = G__31948;
-count__31933_31937 = G__31949;
-i__31934_31938 = G__31950;
+var temp__4126__auto___32400 = cljs.core.seq.call(null,seq__32387_32391);
+if(temp__4126__auto___32400){
+var seq__32387_32401__$1 = temp__4126__auto___32400;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__32387_32401__$1)){
+var c__4884__auto___32402 = cljs.core.chunk_first.call(null,seq__32387_32401__$1);
+var G__32403 = cljs.core.chunk_rest.call(null,seq__32387_32401__$1);
+var G__32404 = c__4884__auto___32402;
+var G__32405 = cljs.core.count.call(null,c__4884__auto___32402);
+var G__32406 = (0);
+seq__32387_32391 = G__32403;
+chunk__32388_32392 = G__32404;
+count__32389_32393 = G__32405;
+i__32390_32394 = G__32406;
 continue;
 } else {
-var uuid_31951 = cljs.core.first.call(null,seq__31931_31945__$1);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_31951.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_31951.state.player_number - (1)),uuid_31951);
+var uuid_32407 = cljs.core.first.call(null,seq__32387_32401__$1);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_32407.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_32407.state.player_number - (1)),uuid_32407);
 } else {
 }
 
-var G__31952 = cljs.core.next.call(null,seq__31931_31945__$1);
-var G__31953 = null;
-var G__31954 = (0);
-var G__31955 = (0);
-seq__31931_31935 = G__31952;
-chunk__31932_31936 = G__31953;
-count__31933_31937 = G__31954;
-i__31934_31938 = G__31955;
+var G__32408 = cljs.core.next.call(null,seq__32387_32401__$1);
+var G__32409 = null;
+var G__32410 = (0);
+var G__32411 = (0);
+seq__32387_32391 = G__32408;
+chunk__32388_32392 = G__32409;
+count__32389_32393 = G__32410;
+i__32390_32394 = G__32411;
 continue;
 }
 } else {
@@ -141,7 +141,7 @@ break;
 
 return console.log("end callback update-players-data");
 })};
-return obj31930;
+return obj32386;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update_players_data_obj);
@@ -150,7 +150,7 @@ return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update
  * Update player's username and state
  */
 penny_pub_react.pubnub.suscribe_moderator = (function penny_pub_react$pubnub$suscribe_moderator(channel_name,channel_slug,players,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj31961 = {"channel":channel_slug,"noheresync":"true","uuid":"moderator-user","message":(function (m){
+penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj32417 = {"channel":channel_slug,"noheresync":"true","uuid":"moderator-user","message":(function (m){
 console.log("init message moderator");
 
 if(cljs.core._EQ_.call(null,"update_coins",m.state_game)){
@@ -167,16 +167,16 @@ console.log(m);
 penny_pub_react.pubnub.update_players_data.call(null,channel_slug,players);
 
 return console.log("end presence moderator");
-}),"state":(function (){var obj31963 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
-return obj31963;
+}),"state":(function (){var obj32419 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
+return obj32419;
 })()};
-return obj31961;
+return obj32417;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_moderator_obj);
 });
 penny_pub_react.pubnub.get_team_name = (function penny_pub_react$pubnub$get_team_name(channel_slug,team_name){
-penny_pub_react.pubnub.get_team_name_obj = (function (){var obj31971 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.get_team_name_obj = (function (){var obj32427 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error get-team-name");
 
 console.log(m);
@@ -189,57 +189,57 @@ console.log(m);
 
 console.log("end here-now get-team-name");
 
-var seq__31972 = cljs.core.seq.call(null,m.uuids);
-var chunk__31973 = null;
-var count__31974 = (0);
-var i__31975 = (0);
+var seq__32428 = cljs.core.seq.call(null,m.uuids);
+var chunk__32429 = null;
+var count__32430 = (0);
+var i__32431 = (0);
 while(true){
-if((i__31975 < count__31974)){
-var uuid = cljs.core._nth.call(null,chunk__31973,i__31975);
+if((i__32431 < count__32430)){
+var uuid = cljs.core._nth.call(null,chunk__32429,i__32431);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__31976 = seq__31972;
-var G__31977 = chunk__31973;
-var G__31978 = count__31974;
-var G__31979 = (i__31975 + (1));
-seq__31972 = G__31976;
-chunk__31973 = G__31977;
-count__31974 = G__31978;
-i__31975 = G__31979;
+var G__32432 = seq__32428;
+var G__32433 = chunk__32429;
+var G__32434 = count__32430;
+var G__32435 = (i__32431 + (1));
+seq__32428 = G__32432;
+chunk__32429 = G__32433;
+count__32430 = G__32434;
+i__32431 = G__32435;
 continue;
 } else {
-var temp__4126__auto__ = cljs.core.seq.call(null,seq__31972);
+var temp__4126__auto__ = cljs.core.seq.call(null,seq__32428);
 if(temp__4126__auto__){
-var seq__31972__$1 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__31972__$1)){
-var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__31972__$1);
-var G__31980 = cljs.core.chunk_rest.call(null,seq__31972__$1);
-var G__31981 = c__4884__auto__;
-var G__31982 = cljs.core.count.call(null,c__4884__auto__);
-var G__31983 = (0);
-seq__31972 = G__31980;
-chunk__31973 = G__31981;
-count__31974 = G__31982;
-i__31975 = G__31983;
+var seq__32428__$1 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__32428__$1)){
+var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__32428__$1);
+var G__32436 = cljs.core.chunk_rest.call(null,seq__32428__$1);
+var G__32437 = c__4884__auto__;
+var G__32438 = cljs.core.count.call(null,c__4884__auto__);
+var G__32439 = (0);
+seq__32428 = G__32436;
+chunk__32429 = G__32437;
+count__32430 = G__32438;
+i__32431 = G__32439;
 continue;
 } else {
-var uuid = cljs.core.first.call(null,seq__31972__$1);
+var uuid = cljs.core.first.call(null,seq__32428__$1);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__31984 = cljs.core.next.call(null,seq__31972__$1);
-var G__31985 = null;
-var G__31986 = (0);
-var G__31987 = (0);
-seq__31972 = G__31984;
-chunk__31973 = G__31985;
-count__31974 = G__31986;
-i__31975 = G__31987;
+var G__32440 = cljs.core.next.call(null,seq__32428__$1);
+var G__32441 = null;
+var G__32442 = (0);
+var G__32443 = (0);
+seq__32428 = G__32440;
+chunk__32429 = G__32441;
+count__32430 = G__32442;
+i__32431 = G__32443;
 continue;
 }
 } else {
@@ -249,24 +249,24 @@ return null;
 break;
 }
 })};
-return obj31971;
+return obj32427;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.get_team_name_obj);
 });
 penny_pub_react.pubnub.set_state = (function penny_pub_react$pubnub$set_state(channel_slug,jsobj){
-penny_pub_react.pubnub.set_state_obj = (function (){var obj31991 = {"channel":channel_slug,"error":(function (m){
+penny_pub_react.pubnub.set_state_obj = (function (){var obj32447 = {"channel":channel_slug,"error":(function (m){
 return console.log(m);
 }),"callback":(function (m){
 return console.log(m);
 }),"state":jsobj};
-return obj31991;
+return obj32447;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.state(penny_pub_react.pubnub.set_state_obj);
 });
 penny_pub_react.pubnub.suscribe_user = (function penny_pub_react$pubnub$suscribe_user(channel_slug,team_name,player_number,player_name,connected_QMARK_,players,playing_QMARK_,batch_size,total_coins,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj31999 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj32455 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 console.log("init message user");
 
 if(cljs.core._EQ_.call(null,"start_game",m.state_game)){
@@ -279,6 +279,8 @@ cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.Persiste
 cljs.core.reset_BANG_.call(null,batch_size,m.batch_size);
 
 cljs.core.reset_BANG_.call(null,total_coins,m.total_coins);
+
+cljs.core.reset_BANG_.call(null,finished_QMARK_,false);
 
 cljs.core.reset_BANG_.call(null,playing_QMARK_,true);
 } else {
@@ -296,8 +298,8 @@ penny_pub_react.pubnub.my_obj = cljs.core.js__GT_clj.call(null,m);
 
 cljs.core.reset_BANG_.call(null,player_number,(parseInt(cljs.core.get.call(null,penny_pub_react.pubnub.my_obj,"occupancy")) - (1)));
 
-penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj32001 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
-return obj32001;
+penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj32457 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
+return obj32457;
 })());
 } else {
 }
@@ -311,10 +313,10 @@ console.log("init connect suscribe-user");
 penny_pub_react.pubnub.get_team_name.call(null,channel_slug,team_name);
 
 return console.log("end connect suscribe-user");
-}),"state":(function (){var obj32003 = {"username":"new-player"};
-return obj32003;
+}),"state":(function (){var obj32459 = {"username":"new-player"};
+return obj32459;
 })()};
-return obj31999;
+return obj32455;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_user_obj);
@@ -323,8 +325,8 @@ return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subsc
  * Send a message to the channel
  */
 penny_pub_react.pubnub.send_message = (function penny_pub_react$pubnub$send_message(channel_slug,message){
-penny_pub_react.pubnub.message_obj = (function (){var obj32007 = {"channel":channel_slug,"message":message};
-return obj32007;
+penny_pub_react.pubnub.message_obj = (function (){var obj32463 = {"channel":channel_slug,"message":message};
+return obj32463;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.publish(penny_pub_react.pubnub.message_obj);
