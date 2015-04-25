@@ -12,9 +12,7 @@ goog.addDependency("../reagent/impl/template.js", ['reagent.impl.template'], ['r
 goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'cljs.core', 'cljsjs.react', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.impl.component', 'reagent.debug']);
 goog.addDependency("../reagent/session.js", ['reagent.session'], ['reagent.core', 'cljs.core']);
 goog.addDependency("../penny_pub_react/pubnub.js", ['penny_pub_react.pubnub'], ['cljs.core', 'clojure.string']);
-goog.addDependency("../clojure/walk.js", ['clojure.walk'], ['cljs.core']);
-goog.addDependency("../secretary/core.js", ['secretary.core'], ['cljs.core', 'clojure.string', 'clojure.walk']);
-goog.addDependency("../penny_pub_react/core.js", ['penny_pub_react.core'], ['reagent.session', 'penny_pub_react.pubnub', 'reagent.core', 'cljs.core', 'secretary.core', 'clojure.string']);
+goog.addDependency("../penny_pub_react/core.js", ['penny_pub_react.core'], ['reagent.session', 'penny_pub_react.pubnub', 'reagent.core', 'cljs.core', 'clojure.string']);
 goog.addDependency("../cljs/core/async/impl/protocols.js", ['cljs.core.async.impl.protocols'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/ioc_helpers.js", ['cljs.core.async.impl.ioc_helpers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.buffers'], ['cljs.core', 'cljs.core.async.impl.protocols']);

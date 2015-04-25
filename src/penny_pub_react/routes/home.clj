@@ -4,10 +4,10 @@
             [clojure.java.io :as io]))
 
 (defn home-page []
-  (layout/render "base.html"))
+  (layout/render "home.html"))
 
 (defn team-home-page [team-slug]
-  (layout/render "base.html" {:team-slug team-slug}))
+  (layout/render "home.html" {:team-slug team-slug}))
 
 
 (defroutes home-routes

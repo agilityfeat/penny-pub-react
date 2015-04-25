@@ -1,6 +1,6 @@
 # penny-pub-react
 
-FIXME
+Penny Fliping game using Clojure, ClojureScript and PubNub
 
 ## Prerequisites
 
@@ -14,6 +14,4 @@ To start a web server for the application, run:
 
     lein ring server
 
-## License
 
-Copyright © 2015 FIXME

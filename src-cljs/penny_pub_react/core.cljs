@@ -1,20 +1,16 @@
 (ns penny-pub-react.core
   (:require [reagent.core :as reagent :refer [atom]]
-            [secretary.core :as secretary]
             [reagent.session :as session]
             [clojure.string :as string]
-            [penny-pub-react.pubnub :as pubnub])
-  (:require-macros [secretary.core :refer [defroute]]))
+            [penny-pub-react.pubnub :as pubnub]))
 
 ;; ----------------------------------------------------------------------------------------------------
 ;; DECLARATION OF ATOMS
 ;; ----------------------------------------------------------------------------------------------------
 
-
 ;team-data
 (def team-name (atom ""))
 (def team-slug (atom ""))
-
 
 ;user-data
 (def user-name (atom ""))
@@ -36,10 +32,6 @@
                     @player-data
                     @player-data]))
 
-;(.log js/console (get-in @players [1 :state]))
-;(swap! players assoc-in [1 :state] "estado nuevo")
-;(.log js/console (get-in @players [1 :state]))
-
 ;general atoms
 (def counter (atom 0))
 (def qty-to-send (atom 0))
@@ -51,18 +43,17 @@
 ;; GENERAL FUNCTIONS
 ;; ----------------------------------------------------------------------------------------------------
 
-(defn add-zero [num]
+(defn add-zero 
+  "Adds a zero if the number is under ten"
+  [num]
     (if (< num 10)
       (str "0" num)
       (str num)))
 
-(defn format-time [seconds]
+(defn format-time 
+  "Convert seconds to mm:ss format"
+  [seconds]
   (str (add-zero (js-mod (js/parseInt (/ seconds 60)) 60)) ":" (add-zero (js-mod seconds 60))))
-
-(defn clock []
-  (let [time-str (-> (:timer @timers) )]
-    [:strong
-      (format-time time-str)]))
 
 (defn slug [f]
   "Replaces a filename's spaces with friendly hyphens and prepares its file extension."
@@ -71,7 +62,12 @@
       (string/replace " " "-")
       (string/replace #"\.(wiki|md)" "")))
 
-
+(defn flip [id]
+  (def img (.getElementById js/document id))
+  (if (= -1 (.indexOf (.-className img) "flip"))
+    (set! (.-className img) "click panel circle flip")
+    (set! (.-className img) "click panel circle"))
+  (= -1 (.indexOf (.-className img) "flip")))
 
 ;Return the team URL
 (defn print-team-url []
@@ -106,20 +102,20 @@
 
 (defn p-ready? [p-index]
   (= "ready" (get-player-state p-index)))
+
 ;; ----------------------------------------------------------------------------------------------------
 ;; HTML COMPONENTS
 ;; ----------------------------------------------------------------------------------------------------
 
 ;; NAVBAR HTML DEFINITION
 (defn navbar []
-      
-       [:div.container
-        [:div.navbar-header
-         [:a.navbar-toggle.collapsed {:href "#/"}  @player-name]
-         [:a.navbar-brand {:href "#/"} [:i.icon-bitcoin-stack] "Remotely Flipped"]]
-        [:nav.collapse.navbar-collapse.bs-navbar-collapse 
-           [:ul.nav.navbar-nav.navbar-right
-              [:li [:a {:href "#/"} @player-name]]]]])
+ [:div.container
+  [:div.navbar-header
+   [:a.navbar-toggle.collapsed {:href "#/"}  @player-name]
+   [:a.navbar-brand {:href "#/"} [:i.icon-bitcoin-stack] "Remotely Flipped"]]
+  [:nav.collapse.navbar-collapse.bs-navbar-collapse 
+    [:ul.nav.navbar-nav.navbar-right
+      [:li [:a {:href "#/"} @player-name]]]]])
 
 ;;COPY RIGHT 
 (defn copyright []
@@ -127,7 +123,6 @@
 
 ;; HOME PAGE DEFINITION
 (defn home-page []
-  
   [:div.instructions-wrap
     [:div.container
       [:div.row
@@ -158,13 +153,6 @@
                                                   (session/put! :page :step2))
                                   :value "Start Game"}]]]
           [copyright]]]]])
-
-(defn flip [id]
-  (def img (.getElementById js/document id))
-  (if (= -1 (.indexOf (.-className img) "flip"))
-    (set! (.-className img) "click panel circle flip")
-    (set! (.-className img) "click panel circle"))
-  (= -1 (.indexOf (.-className img) "flip")))
 
 (defn draw-coin-panel [player-index]
   [:div
@@ -201,7 +189,7 @@
 
 (defn game []
   [:div.game-on
-      [:div.timer [:span "Overall Time:" [clock]]]
+      [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
       (if (> (:timer-first @timers) 0)
           [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]])
       
@@ -302,7 +290,6 @@
   [:div.people-joined-list
             (if (or (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
               [:strong "Joined:"])
-
             (for [x (range 0 4)]
               (if (p-ready? x)
                 [:span [:i.icon-user-check] (get-player-name x)]))])
@@ -439,10 +426,8 @@
 
 
 ;; ----------------------------------------------------------------------------------------------------
-;; Declaration of routes
+;; Routes functions
 ;; ----------------------------------------------------------------------------------------------------
-
-
 
 (def pages
   {:home home-page 
@@ -455,8 +440,6 @@
 
 (defn page []
   [(pages (session/get :page))])
-
-(defroute "/" [] (session/put! :page :home))
 
 (defn mount-components []
   (reagent/render-component [navbar] (.getElementById js/document "top"))
@@ -476,7 +459,6 @@
 ;; ----------------------------------------------------------------------------------------------------
 
 (defn init! []
-  (secretary/set-config! :prefix "#")
   (set-page)
   (mount-components))
 
