@@ -26,11 +26,11 @@
 (def finished? (atom false))
 
 ;players
-(def player-data (atom {:username "" :state "new" :coins 0})) 
-(def players (atom [@player-data 
-                    @player-data 
-                    @player-data
-                    @player-data]))
+(def player-data {:username "" :state "new" :coins 0}) 
+(def players (atom [player-data 
+                    player-data 
+                    player-data
+                    player-data]))
 
 ;general atoms
 (def counter (atom 0))
