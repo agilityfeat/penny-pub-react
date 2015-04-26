@@ -10,7 +10,7 @@
 
 ;;Init Pubnub function 
 (defn connect 
-	"Init the PubNub Object, and subscribe to the channel"
+	"Init the PubNub Object"
 	[]
 	(def PUBNUB_demo (.PUBNUB.init js/window pubInit)))
 
