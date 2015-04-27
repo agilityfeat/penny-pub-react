@@ -306,9 +306,9 @@
   [:div.people-joined-list
             (if (or (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
               [:strong "Joined:"])
-            (for [x (range 0 4)]
+            (doall (for [x (range 0 4)]
               (if (p-ready? x)
-                [:span [:i.icon-user-check] (get-player-name x)]))])
+                [:span {:key (str "pl" x)} [:i.icon-user-check] (get-player-name x)])))])
 
 ;; STEP 4
 (defn li-player
@@ -317,7 +317,7 @@
           [:li [:i.icon-user-block] (get-player-name player-index)])
         
         (when (p-ready? player-index) 
-          [:li.active {:key (str "li-player" player-index)} [:i.icon-user-check {:key (str "iuc-player" player-index)}] (get-player-name player-index)]))  
+          [:li.active  [:i.icon-user-check] (get-player-name player-index)]))  
 
 (defn step4-page []
   (if (= false @playing?)
@@ -333,8 +333,10 @@
               [:div.team-members-in 
                 [:span.plyrs "Players:"]
                 [:ul.list-online
-                  (for [x (range 0 4)]
-                    [li-player x])]]
+                  [li-player 0]
+                  [li-player 1]
+                  [li-player 2]
+                  [li-player 3]]]
               (if (= true @moderator?)
                 (do 
                       
