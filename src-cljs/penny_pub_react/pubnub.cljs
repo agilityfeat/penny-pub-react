@@ -26,7 +26,7 @@
 (defn substract-coins [players p-index qty]
 	(swap! players assoc-in [p-index :coins] (- (get-in @players [p-index :coins]) qty)))
 
-(defn update-coins [players m timers finished?] 
+(defn update-coins [players m timers finished? moderator? channel-slug] 
 	(when (= m.player_from 1)
 		(substract-coins players 0 m.qty)
 		(add-coins players 1 m.qty))
@@ -40,12 +40,23 @@
 		(add-coins players 3 m.qty))
 
 	(when (= m.player_from 4)
-		(if (= (:timer-first @timers) 0)
-			(swap! timers assoc :timer-first (:timer @timers)))
+		
+		(if (= moderator?)
+				(if (= (:timer-first @timers) 0)
+					(do 
+						(swap! timers assoc :timer-first (:timer @timers))
+						(send-message @channel-slug (js-obj "state_game" "update_first_time"
+                                           				    "time" (:timer-first @timers))))))
+		
+		
 		(substract-coins players 3 m.qty)
 		(when (= 0 (count-coins players))
 			(reset! finished? true)
-			(swap! timers assoc :timer-total (:timer @timers)))))
+			(if (= moderator?)
+				(do 
+					(swap! timers assoc :timer-total (:timer @timers))
+					(send-message @channel-slug (js-obj "state_game" "update_total_time"
+                                           				    "time" (:timer-total @timers))))))))
 
 (defn update-player
 	"Update player's username and state "
@@ -81,7 +92,7 @@
 				"message" (fn [m] 
 				             (.log js/console "init message moderator") 
 				             (when (= "update_coins" m.state_game)
-							    (update-coins players m timers finished?))
+							    (update-coins players m timers finished? true channel-slug))
 								(.log js/console "end message moderator") )
 				"presence" (fn [m] 
 								(.log js/console "init presence moderator") 
@@ -137,7 +148,13 @@
 		  												(reset! playing? true)))
 
 		  										(when (= "update_coins" m.state_game)
-		  											(update-coins players m timers finished?))
+		  											(update-coins players m timers finished? false channel-slug))
+
+		  										(when (= "update_first_time" m.state_game)
+		  											(swap! timers assoc :timer-first m.time))
+
+		  										(when (= "update_total_time" m.state_game)
+		  											(swap! timers assoc :timer-total m.time))
 
 		  										(.log js/console "end message user") )
 									 "presence" (fn [m]

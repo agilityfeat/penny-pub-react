@@ -189,9 +189,14 @@
 
 (defn game []
   [:div.game-on
-      [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
-      (if (> (:timer-first @timers) 0)
-          [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]])
+      (if (= true @moderator?)
+        (do 
+            [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
+            (if (> (:timer-first @timers) 0)
+                [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
+        (if (> (:timer-first @timers) 0)
+          [:div.timer [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
+      
       
       [:div.grid
         [:div.panel-wrap.top-left {:class (when (= 1 @player-number) "panel-wrap-player")}
