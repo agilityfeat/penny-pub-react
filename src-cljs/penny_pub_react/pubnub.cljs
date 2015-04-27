@@ -26,6 +26,14 @@
 (defn substract-coins [players p-index qty]
 	(swap! players assoc-in [p-index :coins] (- (get-in @players [p-index :coins]) qty)))
 
+;;Send message function
+(defn send-message 
+	"Send a message to the channel"
+	[channel-slug message]
+	(def message-obj (js-obj  "channel" channel-slug "message" message))
+	(.publish PUBNUB_demo message-obj))
+		
+
 (defn update-coins [players m timers finished? moderator? channel-slug] 
 	(when (= m.player_from 1)
 		(substract-coins players 0 m.qty)
@@ -174,10 +182,3 @@
 								 	 "state" (js-obj "username" "new-player")))
     (.subscribe PUBNUB_demo subscribe-user-obj))  
 
-;;Send message function
-(defn send-message 
-	"Send a message to the channel"
-	[channel-slug message]
-	(def message-obj (js-obj  "channel" channel-slug "message" message))
-	(.publish PUBNUB_demo message-obj))
-		

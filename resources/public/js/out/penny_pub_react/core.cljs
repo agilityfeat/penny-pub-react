@@ -26,11 +26,11 @@
 (def finished? (atom false))
 
 ;players
-(def player-data (atom {:username "" :state "new" :coins 0})) 
-(def players (atom [@player-data 
-                    @player-data 
-                    @player-data
-                    @player-data]))
+(def player-data {:username "" :state "new" :coins 0}) 
+(def players (atom [player-data 
+                    player-data 
+                    player-data
+                    player-data]))
 
 ;general atoms
 (def counter (atom 0))
@@ -94,6 +94,7 @@
                                             "state_game" "update_coins"
                                             "player_from" player_number
                                             "qty" qty)))
+
 (defn get-player-state [player-index]
   (get-in @players [player-index :state]))
 
@@ -149,7 +150,7 @@
                                                   (reset! team-slug (slug @team-name))
                                                   (reset! moderator? true)
                                                   (pubnub/connect)
-                                                  (pubnub/suscribe-moderator @team-name @team-slug players timers finished?)
+                                                  (pubnub/subscribe-moderator @team-name @team-slug players timers finished?)
                                                   (session/put! :page :step2))
                                   :value "Start Game"}]]]
           [copyright]]]]])
@@ -179,7 +180,7 @@
             [:span "Batch " [:strong @qty-to-send " / " @batch-size]]
             [:input.game-btn {:type "button"
                                      :value "Release"
-                                     :class (when (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send))) "active")
+                                     :class (when (and (> (js/parseInt @qty-to-send) 0) (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send)))) "active")
                                      :onClick (fn [] 
                                                     (when (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send)))
                                                       (release (+ 1 player-index) @qty-to-send)
@@ -189,9 +190,14 @@
 
 (defn game []
   [:div.game-on
-      [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
-      (if (> (:timer-first @timers) 0)
-          [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]])
+      (if (= true @moderator?)
+        (do 
+            [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
+            (if (> (:timer-first @timers) 0)
+                [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
+        (if (> (:timer-first @timers) 0)
+          [:div.timer [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
+      
       
       [:div.grid
         [:div.panel-wrap.top-left {:class (when (= 1 @player-number) "panel-wrap-player")}
@@ -451,7 +457,7 @@
     (do 
         (pubnub/connect)
         (reset! team-slug (string/replace (.-location.pathname js/window) "/team/" ""))
-        (pubnub/suscribe-user @team-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?)
+        (pubnub/subscribe-user @team-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?)
         (session/put! :page :team))))
 
 ;; ----------------------------------------------------------------------------------------------------

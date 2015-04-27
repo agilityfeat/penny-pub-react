@@ -94,6 +94,7 @@
                                             "state_game" "update_coins"
                                             "player_from" player_number
                                             "qty" qty)))
+
 (defn get-player-state [player-index]
   (get-in @players [player-index :state]))
 
