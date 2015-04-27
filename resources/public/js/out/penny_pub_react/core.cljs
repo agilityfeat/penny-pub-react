@@ -63,6 +63,8 @@
       (string/replace " " "-")
       (string/replace #"\.(wiki|md)" "")))
 
+
+
 (defn flip [id]
   (def img (.getElementById js/document id))
   (if (= -1 (.indexOf (.-className img) "flip"))
@@ -161,7 +163,7 @@
 
 (defn draw-coin-panel [player-index]
   [:div
-    [:div.coin-table
+    [:div.coin-table {:id (str "coin-table" player-index)}
           (doall(for [x (range 0 (get-in @players [player-index :coins]))]
                 [:div.click.panel.circle {:key (str "p_" player-index "_" x "_" (get-in @players [p-index :releases]))
                                       :id (str "p_" player-index "_" x)
@@ -371,7 +373,7 @@
     
 
 (defn step2-page []
-  (if (and (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
+  (if (or true (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
     [step4-page]
     (do 
       [:div.instructions-wrap
