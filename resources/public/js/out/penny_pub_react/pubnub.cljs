@@ -49,7 +49,8 @@
 
 	(when (= m.player_from 4)
 		
-		(if (= moderator?)
+		(if (= moderator? true)
+				
 				(if (= (:timer-first @timers) 0)
 					(do 
 						(swap! timers assoc :timer-first (:timer @timers))
@@ -60,7 +61,7 @@
 		(substract-coins players 3 m.qty)
 		(when (= 0 (count-coins players))
 			(reset! finished? true)
-			(if (= moderator?)
+			(if (= moderator?  true)
 				(do 
 					(swap! timers assoc :timer-total (:timer @timers))
 					(send-message channel-slug (js-obj "state_game" "update_total_time"

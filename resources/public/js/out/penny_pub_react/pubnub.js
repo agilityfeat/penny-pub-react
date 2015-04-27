@@ -22,8 +22,8 @@ return cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.P
  * Send a message to the channel
  */
 penny_pub_react.pubnub.send_message = (function penny_pub_react$pubnub$send_message(channel_slug,message){
-penny_pub_react.pubnub.message_obj = (function (){var obj8891 = {"channel":channel_slug,"message":message};
-return obj8891;
+penny_pub_react.pubnub.message_obj = (function (){var obj11062 = {"channel":channel_slug,"message":message};
+return obj11062;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.publish(penny_pub_react.pubnub.message_obj);
@@ -51,12 +51,12 @@ penny_pub_react.pubnub.add_coins.call(null,players,(3),m.qty);
 }
 
 if(cljs.core._EQ_.call(null,m.player_from,(4))){
-if(cljs.core._EQ_.call(null,moderator_QMARK_)){
+if(cljs.core._EQ_.call(null,moderator_QMARK_,true)){
 if(cljs.core._EQ_.call(null,new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)),(0))){
 cljs.core.swap_BANG_.call(null,timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer-first","timer-first",858682165),new cljs.core.Keyword(null,"timer","timer",-1266967739).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)));
 
-penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj8897 = {"state_game":"update_first_time","time":new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
-return obj8897;
+penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj11068 = {"state_game":"update_first_time","time":new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
+return obj11068;
 })());
 } else {
 }
@@ -68,11 +68,11 @@ penny_pub_react.pubnub.substract_coins.call(null,players,(3),m.qty);
 if(cljs.core._EQ_.call(null,(0),penny_pub_react.pubnub.count_coins.call(null,players))){
 cljs.core.reset_BANG_.call(null,finished_QMARK_,true);
 
-if(cljs.core._EQ_.call(null,moderator_QMARK_)){
+if(cljs.core._EQ_.call(null,moderator_QMARK_,true)){
 cljs.core.swap_BANG_.call(null,timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer-total","timer-total",1029882551),new cljs.core.Keyword(null,"timer","timer",-1266967739).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)));
 
-return penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj8899 = {"state_game":"update_total_time","time":new cljs.core.Keyword(null,"timer-total","timer-total",1029882551).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
-return obj8899;
+return penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj11070 = {"state_game":"update_total_time","time":new cljs.core.Keyword(null,"timer-total","timer-total",1029882551).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
+return obj11070;
 })());
 } else {
 return null;
@@ -96,7 +96,7 @@ return cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.P
  * Update player's username and state
  */
 penny_pub_react.pubnub.update_players_data = (function penny_pub_react$pubnub$update_players_data(channel_slug,players){
-penny_pub_react.pubnub.update_players_data_obj = (function (){var obj8907 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.update_players_data_obj = (function (){var obj11078 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error update-players-data");
 
 console.log(m);
@@ -105,57 +105,57 @@ return console.log("end error update-players-data");
 }),"callback":(function (m){
 console.log("init callback update-players-data");
 
-var seq__8908_8912 = cljs.core.seq.call(null,m.uuids);
-var chunk__8909_8913 = null;
-var count__8910_8914 = (0);
-var i__8911_8915 = (0);
+var seq__11079_11083 = cljs.core.seq.call(null,m.uuids);
+var chunk__11080_11084 = null;
+var count__11081_11085 = (0);
+var i__11082_11086 = (0);
 while(true){
-if((i__8911_8915 < count__8910_8914)){
-var uuid_8916 = cljs.core._nth.call(null,chunk__8909_8913,i__8911_8915);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_8916.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_8916.state.player_number - (1)),uuid_8916);
+if((i__11082_11086 < count__11081_11085)){
+var uuid_11087 = cljs.core._nth.call(null,chunk__11080_11084,i__11082_11086);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_11087.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_11087.state.player_number - (1)),uuid_11087);
 } else {
 }
 
-var G__8917 = seq__8908_8912;
-var G__8918 = chunk__8909_8913;
-var G__8919 = count__8910_8914;
-var G__8920 = (i__8911_8915 + (1));
-seq__8908_8912 = G__8917;
-chunk__8909_8913 = G__8918;
-count__8910_8914 = G__8919;
-i__8911_8915 = G__8920;
+var G__11088 = seq__11079_11083;
+var G__11089 = chunk__11080_11084;
+var G__11090 = count__11081_11085;
+var G__11091 = (i__11082_11086 + (1));
+seq__11079_11083 = G__11088;
+chunk__11080_11084 = G__11089;
+count__11081_11085 = G__11090;
+i__11082_11086 = G__11091;
 continue;
 } else {
-var temp__4126__auto___8921 = cljs.core.seq.call(null,seq__8908_8912);
-if(temp__4126__auto___8921){
-var seq__8908_8922__$1 = temp__4126__auto___8921;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__8908_8922__$1)){
-var c__4884__auto___8923 = cljs.core.chunk_first.call(null,seq__8908_8922__$1);
-var G__8924 = cljs.core.chunk_rest.call(null,seq__8908_8922__$1);
-var G__8925 = c__4884__auto___8923;
-var G__8926 = cljs.core.count.call(null,c__4884__auto___8923);
-var G__8927 = (0);
-seq__8908_8912 = G__8924;
-chunk__8909_8913 = G__8925;
-count__8910_8914 = G__8926;
-i__8911_8915 = G__8927;
+var temp__4126__auto___11092 = cljs.core.seq.call(null,seq__11079_11083);
+if(temp__4126__auto___11092){
+var seq__11079_11093__$1 = temp__4126__auto___11092;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__11079_11093__$1)){
+var c__4884__auto___11094 = cljs.core.chunk_first.call(null,seq__11079_11093__$1);
+var G__11095 = cljs.core.chunk_rest.call(null,seq__11079_11093__$1);
+var G__11096 = c__4884__auto___11094;
+var G__11097 = cljs.core.count.call(null,c__4884__auto___11094);
+var G__11098 = (0);
+seq__11079_11083 = G__11095;
+chunk__11080_11084 = G__11096;
+count__11081_11085 = G__11097;
+i__11082_11086 = G__11098;
 continue;
 } else {
-var uuid_8928 = cljs.core.first.call(null,seq__8908_8922__$1);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_8928.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_8928.state.player_number - (1)),uuid_8928);
+var uuid_11099 = cljs.core.first.call(null,seq__11079_11093__$1);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_11099.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_11099.state.player_number - (1)),uuid_11099);
 } else {
 }
 
-var G__8929 = cljs.core.next.call(null,seq__8908_8922__$1);
-var G__8930 = null;
-var G__8931 = (0);
-var G__8932 = (0);
-seq__8908_8912 = G__8929;
-chunk__8909_8913 = G__8930;
-count__8910_8914 = G__8931;
-i__8911_8915 = G__8932;
+var G__11100 = cljs.core.next.call(null,seq__11079_11093__$1);
+var G__11101 = null;
+var G__11102 = (0);
+var G__11103 = (0);
+seq__11079_11083 = G__11100;
+chunk__11080_11084 = G__11101;
+count__11081_11085 = G__11102;
+i__11082_11086 = G__11103;
 continue;
 }
 } else {
@@ -166,7 +166,7 @@ break;
 
 return console.log("end callback update-players-data");
 })};
-return obj8907;
+return obj11078;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update_players_data_obj);
@@ -175,7 +175,7 @@ return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update
  * Update player's username and state
  */
 penny_pub_react.pubnub.subscribe_moderator = (function penny_pub_react$pubnub$subscribe_moderator(channel_name,channel_slug,players,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj8938 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj11109 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 console.log("init message moderator");
 
 if(cljs.core._EQ_.call(null,"update_coins",m.state_game)){
@@ -192,16 +192,16 @@ console.log(m);
 penny_pub_react.pubnub.update_players_data.call(null,channel_slug,players);
 
 return console.log("end presence moderator");
-}),"state":(function (){var obj8940 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
-return obj8940;
+}),"state":(function (){var obj11111 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
+return obj11111;
 })()};
-return obj8938;
+return obj11109;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_moderator_obj);
 });
 penny_pub_react.pubnub.get_team_name = (function penny_pub_react$pubnub$get_team_name(channel_slug,team_name){
-penny_pub_react.pubnub.get_team_name_obj = (function (){var obj8948 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.get_team_name_obj = (function (){var obj11119 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error get-team-name");
 
 console.log(m);
@@ -214,57 +214,57 @@ console.log(m);
 
 console.log("end here-now get-team-name");
 
-var seq__8949 = cljs.core.seq.call(null,m.uuids);
-var chunk__8950 = null;
-var count__8951 = (0);
-var i__8952 = (0);
+var seq__11120 = cljs.core.seq.call(null,m.uuids);
+var chunk__11121 = null;
+var count__11122 = (0);
+var i__11123 = (0);
 while(true){
-if((i__8952 < count__8951)){
-var uuid = cljs.core._nth.call(null,chunk__8950,i__8952);
+if((i__11123 < count__11122)){
+var uuid = cljs.core._nth.call(null,chunk__11121,i__11123);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__8953 = seq__8949;
-var G__8954 = chunk__8950;
-var G__8955 = count__8951;
-var G__8956 = (i__8952 + (1));
-seq__8949 = G__8953;
-chunk__8950 = G__8954;
-count__8951 = G__8955;
-i__8952 = G__8956;
+var G__11124 = seq__11120;
+var G__11125 = chunk__11121;
+var G__11126 = count__11122;
+var G__11127 = (i__11123 + (1));
+seq__11120 = G__11124;
+chunk__11121 = G__11125;
+count__11122 = G__11126;
+i__11123 = G__11127;
 continue;
 } else {
-var temp__4126__auto__ = cljs.core.seq.call(null,seq__8949);
+var temp__4126__auto__ = cljs.core.seq.call(null,seq__11120);
 if(temp__4126__auto__){
-var seq__8949__$1 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__8949__$1)){
-var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__8949__$1);
-var G__8957 = cljs.core.chunk_rest.call(null,seq__8949__$1);
-var G__8958 = c__4884__auto__;
-var G__8959 = cljs.core.count.call(null,c__4884__auto__);
-var G__8960 = (0);
-seq__8949 = G__8957;
-chunk__8950 = G__8958;
-count__8951 = G__8959;
-i__8952 = G__8960;
+var seq__11120__$1 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__11120__$1)){
+var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__11120__$1);
+var G__11128 = cljs.core.chunk_rest.call(null,seq__11120__$1);
+var G__11129 = c__4884__auto__;
+var G__11130 = cljs.core.count.call(null,c__4884__auto__);
+var G__11131 = (0);
+seq__11120 = G__11128;
+chunk__11121 = G__11129;
+count__11122 = G__11130;
+i__11123 = G__11131;
 continue;
 } else {
-var uuid = cljs.core.first.call(null,seq__8949__$1);
+var uuid = cljs.core.first.call(null,seq__11120__$1);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__8961 = cljs.core.next.call(null,seq__8949__$1);
-var G__8962 = null;
-var G__8963 = (0);
-var G__8964 = (0);
-seq__8949 = G__8961;
-chunk__8950 = G__8962;
-count__8951 = G__8963;
-i__8952 = G__8964;
+var G__11132 = cljs.core.next.call(null,seq__11120__$1);
+var G__11133 = null;
+var G__11134 = (0);
+var G__11135 = (0);
+seq__11120 = G__11132;
+chunk__11121 = G__11133;
+count__11122 = G__11134;
+i__11123 = G__11135;
 continue;
 }
 } else {
@@ -274,24 +274,24 @@ return null;
 break;
 }
 })};
-return obj8948;
+return obj11119;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.get_team_name_obj);
 });
 penny_pub_react.pubnub.set_state = (function penny_pub_react$pubnub$set_state(channel_slug,jsobj){
-penny_pub_react.pubnub.set_state_obj = (function (){var obj8968 = {"channel":channel_slug,"error":(function (m){
+penny_pub_react.pubnub.set_state_obj = (function (){var obj11139 = {"channel":channel_slug,"error":(function (m){
 return console.log(m);
 }),"callback":(function (m){
 return console.log(m);
 }),"state":jsobj};
-return obj8968;
+return obj11139;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.state(penny_pub_react.pubnub.set_state_obj);
 });
 penny_pub_react.pubnub.subscribe_user = (function penny_pub_react$pubnub$subscribe_user(channel_slug,team_name,player_number,player_name,connected_QMARK_,players,playing_QMARK_,batch_size,total_coins,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj8976 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj11147 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 console.log("init message user");
 
 if(cljs.core._EQ_.call(null,"start_game",m.state_game)){
@@ -333,8 +333,8 @@ penny_pub_react.pubnub.my_obj = cljs.core.js__GT_clj.call(null,m);
 
 cljs.core.reset_BANG_.call(null,player_number,(parseInt(cljs.core.get.call(null,penny_pub_react.pubnub.my_obj,"occupancy")) - (1)));
 
-penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj8978 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
-return obj8978;
+penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj11149 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
+return obj11149;
 })());
 } else {
 }
@@ -348,10 +348,10 @@ console.log("init connect subscribe-user");
 penny_pub_react.pubnub.get_team_name.call(null,channel_slug,team_name);
 
 return console.log("end connect subscribe-user");
-}),"state":(function (){var obj8980 = {"username":"new-player"};
-return obj8980;
+}),"state":(function (){var obj11151 = {"username":"new-player"};
+return obj11151;
 })()};
-return obj8976;
+return obj11147;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_user_obj);
