@@ -149,7 +149,7 @@
                                                   (reset! team-slug (slug @team-name))
                                                   (reset! moderator? true)
                                                   (pubnub/connect)
-                                                  (pubnub/suscribe-moderator @team-name @team-slug players timers finished?)
+                                                  (pubnub/subscribe-moderator @team-name @team-slug players timers finished?)
                                                   (session/put! :page :step2))
                                   :value "Start Game"}]]]
           [copyright]]]]])
@@ -179,7 +179,7 @@
             [:span "Batch " [:strong @qty-to-send " / " @batch-size]]
             [:input.game-btn {:type "button"
                                      :value "Release"
-                                     :class (when (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send))) "active")
+                                     :class (when (and (> (js/parseInt @qty-to-send) 0) (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send)))) "active")
                                      :onClick (fn [] 
                                                     (when (or (= (js/parseInt @qty-to-send) (get-in @players [player-index :coins])) (= (js/parseInt @batch-size) (js/parseInt @qty-to-send)))
                                                       (release (+ 1 player-index) @qty-to-send)
@@ -451,7 +451,7 @@
     (do 
         (pubnub/connect)
         (reset! team-slug (string/replace (.-location.pathname js/window) "/team/" ""))
-        (pubnub/suscribe-user @team-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?)
+        (pubnub/subscribe-user @team-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?)
         (session/put! :page :team))))
 
 ;; ----------------------------------------------------------------------------------------------------

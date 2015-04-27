@@ -71,25 +71,26 @@
 						  										(.log js/console "end callback update-players-data"))))
     	(.here_now PUBNUB_demo update-players-data-obj))  
 
-(defn suscribe-moderator 
+(defn subscribe-moderator 
 	"Update player's username and state "	
 	[channel-name channel-slug players timers finished?]
-	(def subscribe-moderator-obj (js-obj  "channel" channel-slug
-								"noheresync" "true"
-								"uuid" "moderator-user"
-								"message" (fn [m] 
-		  										(.log js/console "init message moderator") 
-		  										(when (= "update_coins" m.state_game)
-		  											(update-coins players m timers finished?))
-		  										(.log js/console "end message moderator") )
-								"presence" (fn [m] 
-												(.log js/console "init presence moderator") 
-												(.log js/console m)
-												(update-players-data channel-slug players)
-												(.log js/console "end presence moderator") )
-								 "state" (js-obj "username" "moderador" 
-								 				 "state_game" "waiting_for_players" 
-								 				 "channel_name" channel-name)))
+	(def subscribe-moderator-obj 
+		(js-obj  
+		        "channel" channel-slug
+				"noheresync" "true"
+				"message" (fn [m] 
+				             (.log js/console "init message moderator") 
+				             (when (= "update_coins" m.state_game)
+							    (update-coins players m timers finished?))
+								(.log js/console "end message moderator") )
+				"presence" (fn [m] 
+								(.log js/console "init presence moderator") 
+								(.log js/console m)
+								(update-players-data channel-slug players)
+								(.log js/console "end presence moderator") )
+				 "state" (js-obj "username" "moderador" 
+				 				 "state_game" "waiting_for_players" 
+				 				 "channel_name" channel-name)))
     (.subscribe PUBNUB_demo subscribe-moderator-obj))
 
 
@@ -119,7 +120,7 @@
     (.state PUBNUB_demo set-state-obj)) 
 
 
-(defn suscribe-user [channel-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?]
+(defn subscribe-user [channel-slug team-name player-number player-name connected? players playing? batch-size total-coins timers finished?]
 	(def subscribe-user-obj (js-obj  "channel" channel-slug
 									 "noheresync" "true"
 									 "message" (fn [m] 
@@ -150,9 +151,9 @@
 									 					(update-players-data channel-slug players))
 									 "connect" (fn [m]
 									 				(reset! connected? true)	
-									 				(.log js/console "init connect suscribe-user") 
+									 				(.log js/console "init connect subscribe-user") 
 									 				(get-team-name channel-slug team-name)
-									 				(.log js/console "end connect suscribe-user") )
+									 				(.log js/console "end connect subscribe-user") )
 								 	 "state" (js-obj "username" "new-player")))
     (.subscribe PUBNUB_demo subscribe-user-obj))  
 
