@@ -16,9 +16,10 @@ penny_pub_react.core.connected_QMARK_ = reagent.core.atom.call(null,false);
 penny_pub_react.core.moderator_QMARK_ = reagent.core.atom.call(null,false);
 penny_pub_react.core.playing_QMARK_ = reagent.core.atom.call(null,false);
 penny_pub_react.core.finished_QMARK_ = reagent.core.atom.call(null,false);
-penny_pub_react.core.player_data = new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"username","username",1605666410),"",new cljs.core.Keyword(null,"state","state",-1988618099),"new",new cljs.core.Keyword(null,"coins","coins",-706011883),(0)], null);
+penny_pub_react.core.player_data = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"username","username",1605666410),"",new cljs.core.Keyword(null,"state","state",-1988618099),"new",new cljs.core.Keyword(null,"coins","coins",-706011883),(0),new cljs.core.Keyword(null,"releases","releases",460978484),(0)], null);
 penny_pub_react.core.players = reagent.core.atom.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.player_data,penny_pub_react.core.player_data,penny_pub_react.core.player_data,penny_pub_react.core.player_data], null));
 penny_pub_react.core.counter = reagent.core.atom.call(null,(0));
+penny_pub_react.core.qty_releases = reagent.core.atom.call(null,(0));
 penny_pub_react.core.qty_to_send = reagent.core.atom.call(null,(0));
 penny_pub_react.core.timers = reagent.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"timer","timer",-1266967739),(0),new cljs.core.Keyword(null,"timer-first","timer-first",858682165),(0),new cljs.core.Keyword(null,"timer-total","timer-total",1029882551),(0)], null));
 if(typeof penny_pub_react.core.time_updater !== 'undefined'){
@@ -63,16 +64,16 @@ return [cljs.core.str(window.location.href),cljs.core.str("team/"),cljs.core.str
 });
 penny_pub_react.core.start_game = (function penny_pub_react$core$start_game(){
 if(!(((parseInt(cljs.core.deref.call(null,penny_pub_react.core.batch_size)) > (50))) || ((parseInt(cljs.core.deref.call(null,penny_pub_react.core.total_coins)) > (50))) || ((parseInt(cljs.core.deref.call(null,penny_pub_react.core.total_coins)) < parseInt(cljs.core.deref.call(null,penny_pub_react.core.batch_size)))))){
-penny_pub_react.pubnub.set_state.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj9228 = {"username":"moderador","state_game":"playing","batch_size":cljs.core.deref.call(null,penny_pub_react.core.batch_size),"total_coins":cljs.core.deref.call(null,penny_pub_react.core.total_coins),"channel_name":cljs.core.deref.call(null,penny_pub_react.core.team_name)};
-return obj9228;
+penny_pub_react.pubnub.set_state.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj10384 = {"username":"moderador","state_game":"playing","batch_size":cljs.core.deref.call(null,penny_pub_react.core.batch_size),"total_coins":cljs.core.deref.call(null,penny_pub_react.core.total_coins),"channel_name":cljs.core.deref.call(null,penny_pub_react.core.team_name)};
+return obj10384;
 })());
 
 cljs.core.swap_BANG_.call(null,penny_pub_react.core.timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer","timer",-1266967739),(0));
 
 cljs.core.swap_BANG_.call(null,penny_pub_react.core.timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer-first","timer-first",858682165),(0));
 
-penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj9230 = {"state_game":"start_game","batch_size":cljs.core.deref.call(null,penny_pub_react.core.batch_size),"total_coins":cljs.core.deref.call(null,penny_pub_react.core.total_coins)};
-return obj9230;
+penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj10386 = {"state_game":"start_game","batch_size":cljs.core.deref.call(null,penny_pub_react.core.batch_size),"total_coins":cljs.core.deref.call(null,penny_pub_react.core.total_coins)};
+return obj10386;
 })());
 
 cljs.core.swap_BANG_.call(null,penny_pub_react.core.players,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),new cljs.core.Keyword(null,"coins","coins",-706011883)], null),cljs.core.deref.call(null,penny_pub_react.core.total_coins));
@@ -85,8 +86,14 @@ return null;
 }
 });
 penny_pub_react.core.release = (function penny_pub_react$core$release(player_number,qty){
-return penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj9234 = {"username":"moderador","state_game":"update_coins","player_from":player_number,"qty":qty};
-return obj9234;
+penny_pub_react.core.p_index = (player_number - (1));
+
+cljs.core.reset_BANG_.call(null,penny_pub_react.core.qty_releases,(cljs.core.deref.call(null,penny_pub_react.core.qty_releases) + (1)));
+
+cljs.core.swap_BANG_.call(null,penny_pub_react.core.players,cljs.core.assoc_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.p_index,new cljs.core.Keyword(null,"releases","releases",460978484)], null),(cljs.core.get_in.call(null,cljs.core.deref.call(null,penny_pub_react.core.players),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.p_index,new cljs.core.Keyword(null,"releases","releases",460978484)], null)) + (1)));
+
+return penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj10390 = {"username":"moderador","state_game":"update_coins","player_from":player_number,"qty":qty};
+return obj10390;
 })());
 });
 penny_pub_react.core.get_player_state = (function penny_pub_react$core$get_player_state(player_index){
@@ -105,8 +112,8 @@ penny_pub_react.core.copyright = (function penny_pub_react$core$copyright(){
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p.copyright","p.copyright",-1851334256),"Built by: ",new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"a","a",-2123407586),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"href","href",-793805698),"http://www.agilityfeat.com"], null),"www.agilityfeat.com"], null)], null);
 });
 penny_pub_react.core.home_page = (function penny_pub_react$core$home_page(){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Remotely Flipped"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),"The Lean Penny Game for Remote Teams"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Have you ever struggled to teach a product team that its more efficient to work in small batch sizes?\n               Agile and Lean coaches have been using the penny game to show how teams that work in small chunks are much more efficient.\n               Usually this game is played in person with nothing but a stack of coins."], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"We\u2019ve built thus online version so remote teams can play it together in real-time."], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.form-control","input.form-control",-1123419636),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"id","id",-1388402092),"team",new cljs.core.Keyword(null,"key","key",-1516042587),"team",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9235_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.team_name,p1__9235_SHARP_.target.value);
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Remotely Flipped"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),"The Lean Penny Game for Remote Teams"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Have you ever struggled to teach a product team that its more efficient to work in small batch sizes?\n               Agile and Lean coaches have been using the penny game to show how teams that work in small chunks are much more efficient.\n               Usually this game is played in person with nothing but a stack of coins."], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"We\u2019ve built thus online version so remote teams can play it together in real-time."], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.form-control","input.form-control",-1123419636),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"id","id",-1388402092),"team",new cljs.core.Keyword(null,"key","key",-1516042587),"team",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10391_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.team_name,p1__10391_SHARP_.target.value);
 }),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Team Name"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.start-game","input.start-game",-1313094),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"id","id",-1388402092),"btnTeam",new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Team Name",new cljs.core.Keyword(null,"onClick","onClick",-1991238530),(function (){
 cljs.core.reset_BANG_.call(null,penny_pub_react.core.team_slug,penny_pub_react.core.slug.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_name)));
 
@@ -120,22 +127,22 @@ return reagent.session.put_BANG_.call(null,new cljs.core.Keyword(null,"page","pa
 }),new cljs.core.Keyword(null,"value","value",305978217),"Start Game"], null)], null)], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.copyright], null)], null)], null)], null)], null);
 });
 penny_pub_react.core.draw_coin_panel = (function penny_pub_react$core$draw_coin_panel(player_index){
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.coin-table","div.coin-table",-722046866),cljs.core.doall.call(null,(function (){var iter__4853__auto__ = (function penny_pub_react$core$draw_coin_panel_$_iter__9240(s__9241){
+return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.coin-table","div.coin-table",-722046866),cljs.core.doall.call(null,(function (){var iter__4853__auto__ = (function penny_pub_react$core$draw_coin_panel_$_iter__10396(s__10397){
 return (new cljs.core.LazySeq(null,(function (){
-var s__9241__$1 = s__9241;
+var s__10397__$1 = s__10397;
 while(true){
-var temp__4126__auto__ = cljs.core.seq.call(null,s__9241__$1);
+var temp__4126__auto__ = cljs.core.seq.call(null,s__10397__$1);
 if(temp__4126__auto__){
-var s__9241__$2 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__9241__$2)){
-var c__4851__auto__ = cljs.core.chunk_first.call(null,s__9241__$2);
+var s__10397__$2 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__10397__$2)){
+var c__4851__auto__ = cljs.core.chunk_first.call(null,s__10397__$2);
 var size__4852__auto__ = cljs.core.count.call(null,c__4851__auto__);
-var b__9243 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
-if((function (){var i__9242 = (0);
+var b__10399 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
+if((function (){var i__10398 = (0);
 while(true){
-if((i__9242 < size__4852__auto__)){
-var x = cljs.core._nth.call(null,c__4851__auto__,i__9242);
-cljs.core.chunk_append.call(null,b__9243,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.click.panel.circle","div.click.panel.circle",770956535),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x),cljs.core.str("_"),cljs.core.str(cljs.core.get_in.call(null,cljs.core.deref.call(null,penny_pub_react.core.players),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [player_index,new cljs.core.Keyword(null,"coins","coins",-706011883)], null)))].join(''),new cljs.core.Keyword(null,"id","id",-1388402092),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''),new cljs.core.Keyword(null,"onClick","onClick",-1991238530),((function (i__9242,x,c__4851__auto__,size__4852__auto__,b__9243,s__9241__$2,temp__4126__auto__){
+if((i__10398 < size__4852__auto__)){
+var x = cljs.core._nth.call(null,c__4851__auto__,i__10398);
+cljs.core.chunk_append.call(null,b__10399,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.click.panel.circle","div.click.panel.circle",770956535),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x),cljs.core.str("_"),cljs.core.str(cljs.core.get_in.call(null,cljs.core.deref.call(null,penny_pub_react.core.players),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.p_index,new cljs.core.Keyword(null,"releases","releases",460978484)], null)))].join(''),new cljs.core.Keyword(null,"id","id",-1388402092),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''),new cljs.core.Keyword(null,"onClick","onClick",-1991238530),((function (i__10398,x,c__4851__auto__,size__4852__auto__,b__10399,s__10397__$2,temp__4126__auto__){
 return (function (){
 if(cljs.core._EQ_.call(null,(player_index + (1)),cljs.core.deref.call(null,penny_pub_react.core.player_number))){
 penny_pub_react.core.subtract_QMARK_ = penny_pub_react.core.flip.call(null,[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''));
@@ -152,11 +159,11 @@ return cljs.core.reset_BANG_.call(null,penny_pub_react.core.qty_to_send,(cljs.co
 } else {
 return null;
 }
-});})(i__9242,x,c__4851__auto__,size__4852__auto__,b__9243,s__9241__$2,temp__4126__auto__))
+});})(i__10398,x,c__4851__auto__,size__4852__auto__,b__10399,s__10397__$2,temp__4126__auto__))
 ], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.front.icon-bitcoin-head","div.front.icon-bitcoin-head",757969988)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.back.icon-bitcoin-tales","div.back.icon-bitcoin-tales",-2097246428)], null)], null));
 
-var G__9244 = (i__9242 + (1));
-i__9242 = G__9244;
+var G__10400 = (i__10398 + (1));
+i__10398 = G__10400;
 continue;
 } else {
 return true;
@@ -164,13 +171,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9243),penny_pub_react$core$draw_coin_panel_$_iter__9240.call(null,cljs.core.chunk_rest.call(null,s__9241__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10399),penny_pub_react$core$draw_coin_panel_$_iter__10396.call(null,cljs.core.chunk_rest.call(null,s__10397__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9243),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10399),null);
 }
 } else {
-var x = cljs.core.first.call(null,s__9241__$2);
-return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.click.panel.circle","div.click.panel.circle",770956535),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x),cljs.core.str("_"),cljs.core.str(cljs.core.get_in.call(null,cljs.core.deref.call(null,penny_pub_react.core.players),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [player_index,new cljs.core.Keyword(null,"coins","coins",-706011883)], null)))].join(''),new cljs.core.Keyword(null,"id","id",-1388402092),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''),new cljs.core.Keyword(null,"onClick","onClick",-1991238530),((function (x,s__9241__$2,temp__4126__auto__){
+var x = cljs.core.first.call(null,s__10397__$2);
+return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.click.panel.circle","div.click.panel.circle",770956535),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x),cljs.core.str("_"),cljs.core.str(cljs.core.get_in.call(null,cljs.core.deref.call(null,penny_pub_react.core.players),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.p_index,new cljs.core.Keyword(null,"releases","releases",460978484)], null)))].join(''),new cljs.core.Keyword(null,"id","id",-1388402092),[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''),new cljs.core.Keyword(null,"onClick","onClick",-1991238530),((function (x,s__10397__$2,temp__4126__auto__){
 return (function (){
 if(cljs.core._EQ_.call(null,(player_index + (1)),cljs.core.deref.call(null,penny_pub_react.core.player_number))){
 penny_pub_react.core.subtract_QMARK_ = penny_pub_react.core.flip.call(null,[cljs.core.str("p_"),cljs.core.str(player_index),cljs.core.str("_"),cljs.core.str(x)].join(''));
@@ -187,8 +194,8 @@ return cljs.core.reset_BANG_.call(null,penny_pub_react.core.qty_to_send,(cljs.co
 } else {
 return null;
 }
-});})(x,s__9241__$2,temp__4126__auto__))
-], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.front.icon-bitcoin-head","div.front.icon-bitcoin-head",757969988)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.back.icon-bitcoin-tales","div.back.icon-bitcoin-tales",-2097246428)], null)], null),penny_pub_react$core$draw_coin_panel_$_iter__9240.call(null,cljs.core.rest.call(null,s__9241__$2)));
+});})(x,s__10397__$2,temp__4126__auto__))
+], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.front.icon-bitcoin-head","div.front.icon-bitcoin-head",757969988)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.back.icon-bitcoin-tales","div.back.icon-bitcoin-tales",-2097246428)], null)], null),penny_pub_react$core$draw_coin_panel_$_iter__10396.call(null,cljs.core.rest.call(null,s__10397__$2)));
 }
 } else {
 return null;
@@ -212,10 +219,10 @@ penny_pub_react.core.game = (function penny_pub_react$core$game(){
 return new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.game-on","div.game-on",-1543210987),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.timer","div.timer",396383019),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),"Overall Time:",new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),penny_pub_react.core.format_time.call(null,new cljs.core.Keyword(null,"timer","timer",-1266967739).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)))], null)], null)], null):null),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?(((new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)) > (0)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.timer-first","div.timer-first",-1579716264),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),"First Batch:",new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),penny_pub_react.core.format_time.call(null,new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)))], null)], null)], null):null):null),((cljs.core._EQ_.call(null,false,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?(((new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)) > (0)))?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.timer","div.timer",396383019),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),"First Batch:",new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),penny_pub_react.core.format_time.call(null,new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)))], null)], null)], null):null):null),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.grid","div.grid",736588158),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.panel-wrap.top-left","div.panel-wrap.top-left",523651494),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),((cljs.core._EQ_.call(null,(1),cljs.core.deref.call(null,penny_pub_react.core.player_number)))?"panel-wrap-player":null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.draw_coin_panel,(0)], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.panel-wrap.top-right","div.panel-wrap.top-right",1247028941),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),((cljs.core._EQ_.call(null,(2),cljs.core.deref.call(null,penny_pub_react.core.player_number)))?"panel-wrap-player":null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.draw_coin_panel,(1)], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.panel-wrap.bottom-left","div.panel-wrap.bottom-left",-1575336295),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),((cljs.core._EQ_.call(null,(3),cljs.core.deref.call(null,penny_pub_react.core.player_number)))?"panel-wrap-player":null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.draw_coin_panel,(2)], null)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.panel-wrap.bottom-right","div.panel-wrap.bottom-right",-1300674208),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),((cljs.core._EQ_.call(null,(4),cljs.core.deref.call(null,penny_pub_react.core.player_number)))?"panel-wrap-player":null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.draw_coin_panel,(3)], null)], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.floatClear","div.floatClear",2073127826)], null)], null);
 });
 penny_pub_react.core.show_results = (function penny_pub_react$core$show_results(){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Round complete!"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch","div.batch",861650870),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Total coins",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),"batch size"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch-size","div.batch-size",-463409371),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.top","input.top",1248366435),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"total_coins",new cljs.core.Keyword(null,"key","key",-1516042587),"total_coins",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9245_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.total_coins,p1__9245_SHARP_.target.value);
-}),new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.total_coins),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.bottom","input.bottom",-607623288),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"batch_size",new cljs.core.Keyword(null,"key","key",-1516042587),"batch_size",new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.batch_size),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9246_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.batch_size,p1__9246_SHARP_.target.value);
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Round complete!"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch","div.batch",861650870),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Total coins",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),"batch size"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch-size","div.batch-size",-463409371),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.top","input.top",1248366435),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"total_coins",new cljs.core.Keyword(null,"key","key",-1516042587),"total_coins",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10401_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.total_coins,p1__10401_SHARP_.target.value);
+}),new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.total_coins),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.bottom","input.bottom",-607623288),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"batch_size",new cljs.core.Keyword(null,"key","key",-1516042587),"batch_size",new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.batch_size),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10402_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.batch_size,p1__10402_SHARP_.target.value);
 }),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null)], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h4","h4",2004862993),"Time until 1st Batch \"delivered\"",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),penny_pub_react.core.format_time.call(null,new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)))], null)], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h4","h4",2004862993),"Time until all batches \"delivered\"",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),penny_pub_react.core.format_time.call(null,new cljs.core.Keyword(null,"timer-total","timer-total",1029882551).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,penny_pub_react.core.timers)))], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Don't forget to write down the stats and then start new round."], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.start-game","input.start-game",-1313094),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"id","id",-1388402092),"btnStart",new cljs.core.Keyword(null,"onClick","onClick",-1991238530),(function (){
 penny_pub_react.core.start_game.call(null);
 
@@ -232,25 +239,25 @@ return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMP
 penny_pub_react.core.get_total_players = (function penny_pub_react$core$get_total_players(){
 cljs.core.reset_BANG_.call(null,penny_pub_react.core.counter,(0));
 
-cljs.core.doall.call(null,(function (){var iter__4853__auto__ = (function penny_pub_react$core$get_total_players_$_iter__9251(s__9252){
+cljs.core.doall.call(null,(function (){var iter__4853__auto__ = (function penny_pub_react$core$get_total_players_$_iter__10407(s__10408){
 return (new cljs.core.LazySeq(null,(function (){
-var s__9252__$1 = s__9252;
+var s__10408__$1 = s__10408;
 while(true){
-var temp__4126__auto__ = cljs.core.seq.call(null,s__9252__$1);
+var temp__4126__auto__ = cljs.core.seq.call(null,s__10408__$1);
 if(temp__4126__auto__){
-var s__9252__$2 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__9252__$2)){
-var c__4851__auto__ = cljs.core.chunk_first.call(null,s__9252__$2);
+var s__10408__$2 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__10408__$2)){
+var c__4851__auto__ = cljs.core.chunk_first.call(null,s__10408__$2);
 var size__4852__auto__ = cljs.core.count.call(null,c__4851__auto__);
-var b__9254 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
-if((function (){var i__9253 = (0);
+var b__10410 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
+if((function (){var i__10409 = (0);
 while(true){
-if((i__9253 < size__4852__auto__)){
-var x = cljs.core._nth.call(null,c__4851__auto__,i__9253);
-cljs.core.chunk_append.call(null,b__9254,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?cljs.core.reset_BANG_.call(null,penny_pub_react.core.counter,(cljs.core.deref.call(null,penny_pub_react.core.counter) + (1))):null));
+if((i__10409 < size__4852__auto__)){
+var x = cljs.core._nth.call(null,c__4851__auto__,i__10409);
+cljs.core.chunk_append.call(null,b__10410,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?cljs.core.reset_BANG_.call(null,penny_pub_react.core.counter,(cljs.core.deref.call(null,penny_pub_react.core.counter) + (1))):null));
 
-var G__9255 = (i__9253 + (1));
-i__9253 = G__9255;
+var G__10411 = (i__10409 + (1));
+i__10409 = G__10411;
 continue;
 } else {
 return true;
@@ -258,13 +265,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9254),penny_pub_react$core$get_total_players_$_iter__9251.call(null,cljs.core.chunk_rest.call(null,s__9252__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10410),penny_pub_react$core$get_total_players_$_iter__10407.call(null,cljs.core.chunk_rest.call(null,s__10408__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9254),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10410),null);
 }
 } else {
-var x = cljs.core.first.call(null,s__9252__$2);
-return cljs.core.cons.call(null,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?cljs.core.reset_BANG_.call(null,penny_pub_react.core.counter,(cljs.core.deref.call(null,penny_pub_react.core.counter) + (1))):null),penny_pub_react$core$get_total_players_$_iter__9251.call(null,cljs.core.rest.call(null,s__9252__$2)));
+var x = cljs.core.first.call(null,s__10408__$2);
+return cljs.core.cons.call(null,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?cljs.core.reset_BANG_.call(null,penny_pub_react.core.counter,(cljs.core.deref.call(null,penny_pub_react.core.counter) + (1))):null),penny_pub_react$core$get_total_players_$_iter__10407.call(null,cljs.core.rest.call(null,s__10408__$2)));
 }
 } else {
 return null;
@@ -295,25 +302,25 @@ return penny_pub_react.core.p_ready_QMARK_.call(null,(3));
 }
 }
 }
-})())?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),"Joined:"], null):null),(function (){var iter__4853__auto__ = (function penny_pub_react$core$get_list_players_$_iter__9260(s__9261){
+})())?new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"strong","strong",269529000),"Joined:"], null):null),(function (){var iter__4853__auto__ = (function penny_pub_react$core$get_list_players_$_iter__10416(s__10417){
 return (new cljs.core.LazySeq(null,(function (){
-var s__9261__$1 = s__9261;
+var s__10417__$1 = s__10417;
 while(true){
-var temp__4126__auto__ = cljs.core.seq.call(null,s__9261__$1);
+var temp__4126__auto__ = cljs.core.seq.call(null,s__10417__$1);
 if(temp__4126__auto__){
-var s__9261__$2 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__9261__$2)){
-var c__4851__auto__ = cljs.core.chunk_first.call(null,s__9261__$2);
+var s__10417__$2 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__10417__$2)){
+var c__4851__auto__ = cljs.core.chunk_first.call(null,s__10417__$2);
 var size__4852__auto__ = cljs.core.count.call(null,c__4851__auto__);
-var b__9263 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
-if((function (){var i__9262 = (0);
+var b__10419 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
+if((function (){var i__10418 = (0);
 while(true){
-if((i__9262 < size__4852__auto__)){
-var x = cljs.core._nth.call(null,c__4851__auto__,i__9262);
-cljs.core.chunk_append.call(null,b__9263,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422)], null),penny_pub_react.core.get_player_name.call(null,x)], null):null));
+if((i__10418 < size__4852__auto__)){
+var x = cljs.core._nth.call(null,c__4851__auto__,i__10418);
+cljs.core.chunk_append.call(null,b__10419,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422)], null),penny_pub_react.core.get_player_name.call(null,x)], null):null));
 
-var G__9264 = (i__9262 + (1));
-i__9262 = G__9264;
+var G__10420 = (i__10418 + (1));
+i__10418 = G__10420;
 continue;
 } else {
 return true;
@@ -321,13 +328,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9263),penny_pub_react$core$get_list_players_$_iter__9260.call(null,cljs.core.chunk_rest.call(null,s__9261__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10419),penny_pub_react$core$get_list_players_$_iter__10416.call(null,cljs.core.chunk_rest.call(null,s__10417__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9263),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10419),null);
 }
 } else {
-var x = cljs.core.first.call(null,s__9261__$2);
-return cljs.core.cons.call(null,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422)], null),penny_pub_react.core.get_player_name.call(null,x)], null):null),penny_pub_react$core$get_list_players_$_iter__9260.call(null,cljs.core.rest.call(null,s__9261__$2)));
+var x = cljs.core.first.call(null,s__10417__$2);
+return cljs.core.cons.call(null,(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,x))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422)], null),penny_pub_react.core.get_player_name.call(null,x)], null):null),penny_pub_react$core$get_list_players_$_iter__10416.call(null,cljs.core.rest.call(null,s__10417__$2)));
 }
 } else {
 return null;
@@ -346,32 +353,32 @@ new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE
 }
 
 if(cljs.core.truth_(penny_pub_react.core.p_ready_QMARK_.call(null,player_index))){
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"li.active","li.active",-1051611101),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422)], null),penny_pub_react.core.get_player_name.call(null,player_index)], null);
+return new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"li.active","li.active",-1051611101),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("li-player"),cljs.core.str(player_index)].join('')], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-user-check","i.icon-user-check",88956422),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"key","key",-1516042587),[cljs.core.str("iuc-player"),cljs.core.str(player_index)].join('')], null)], null),penny_pub_react.core.get_player_name.call(null,player_index)], null);
 } else {
 return null;
 }
 });
 penny_pub_react.core.step4_page = (function penny_pub_react$core$step4_page(){
 if(cljs.core._EQ_.call(null,false,cljs.core.deref.call(null,penny_pub_react.core.playing_QMARK_))){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Lets Flip!"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.team-members-in","div.team-members-in",-224668880),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.plyrs","span.plyrs",-452285457),"Players:"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"ul.list-online","ul.list-online",707314039),(function (){var iter__4853__auto__ = (function penny_pub_react$core$step4_page_$_iter__9271(s__9272){
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 7, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-bitcoin-stack","i.icon-bitcoin-stack",1329072980)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),"Lets Flip!"], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.team-members-in","div.team-members-in",-224668880),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.plyrs","span.plyrs",-452285457),"Players:"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"ul.list-online","ul.list-online",707314039),(function (){var iter__4853__auto__ = (function penny_pub_react$core$step4_page_$_iter__10427(s__10428){
 return (new cljs.core.LazySeq(null,(function (){
-var s__9272__$1 = s__9272;
+var s__10428__$1 = s__10428;
 while(true){
-var temp__4126__auto__ = cljs.core.seq.call(null,s__9272__$1);
+var temp__4126__auto__ = cljs.core.seq.call(null,s__10428__$1);
 if(temp__4126__auto__){
-var s__9272__$2 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__9272__$2)){
-var c__4851__auto__ = cljs.core.chunk_first.call(null,s__9272__$2);
+var s__10428__$2 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__10428__$2)){
+var c__4851__auto__ = cljs.core.chunk_first.call(null,s__10428__$2);
 var size__4852__auto__ = cljs.core.count.call(null,c__4851__auto__);
-var b__9274 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
-if((function (){var i__9273 = (0);
+var b__10430 = cljs.core.chunk_buffer.call(null,size__4852__auto__);
+if((function (){var i__10429 = (0);
 while(true){
-if((i__9273 < size__4852__auto__)){
-var x = cljs.core._nth.call(null,c__4851__auto__,i__9273);
-cljs.core.chunk_append.call(null,b__9274,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.li_player,x], null));
+if((i__10429 < size__4852__auto__)){
+var x = cljs.core._nth.call(null,c__4851__auto__,i__10429);
+cljs.core.chunk_append.call(null,b__10430,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.li_player,x], null));
 
-var G__9275 = (i__9273 + (1));
-i__9273 = G__9275;
+var G__10431 = (i__10429 + (1));
+i__10429 = G__10431;
 continue;
 } else {
 return true;
@@ -379,13 +386,13 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9274),penny_pub_react$core$step4_page_$_iter__9271.call(null,cljs.core.chunk_rest.call(null,s__9272__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10430),penny_pub_react$core$step4_page_$_iter__10427.call(null,cljs.core.chunk_rest.call(null,s__10428__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__9274),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__10430),null);
 }
 } else {
-var x = cljs.core.first.call(null,s__9272__$2);
-return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.li_player,x], null),penny_pub_react$core$step4_page_$_iter__9271.call(null,cljs.core.rest.call(null,s__9272__$2)));
+var x = cljs.core.first.call(null,s__10428__$2);
+return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [penny_pub_react.core.li_player,x], null),penny_pub_react$core$step4_page_$_iter__10427.call(null,cljs.core.rest.call(null,s__10428__$2)));
 }
 } else {
 return null;
@@ -395,10 +402,10 @@ break;
 }),null,null));
 });
 return iter__4853__auto__.call(null,cljs.core.range.call(null,(0),(4)));
-})()], null)], null),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch","div.batch",861650870),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Please wait while the organizer explains the game to you and then starts the round."], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Total coins",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),"batch size"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch-size","div.batch-size",-463409371),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.top","input.top",1248366435),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"total_coins",new cljs.core.Keyword(null,"key","key",-1516042587),"total_coins",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9265_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.total_coins,p1__9265_SHARP_.target.value);
-}),new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.total_coins),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.bottom","input.bottom",-607623288),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"batch_size",new cljs.core.Keyword(null,"key","key",-1516042587),"batch_size",new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.batch_size),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9266_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.batch_size,p1__9266_SHARP_.target.value);
+})()], null)], null),((cljs.core._EQ_.call(null,true,cljs.core.deref.call(null,penny_pub_react.core.moderator_QMARK_)))?new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch","div.batch",861650870),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Please wait while the organizer explains the game to you and then starts the round."], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Total coins",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"br","br",934104792)], null),"batch size"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.batch-size","div.batch-size",-463409371),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.top","input.top",1248366435),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"total_coins",new cljs.core.Keyword(null,"key","key",-1516042587),"total_coins",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10421_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.total_coins,p1__10421_SHARP_.target.value);
+}),new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.total_coins),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.bottom","input.bottom",-607623288),new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"type","type",1174270348),"number",new cljs.core.Keyword(null,"max","max",61366548),(50),new cljs.core.Keyword(null,"id","id",-1388402092),"batch_size",new cljs.core.Keyword(null,"key","key",-1516042587),"batch_size",new cljs.core.Keyword(null,"value","value",305978217),cljs.core.deref.call(null,penny_pub_react.core.batch_size),new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10422_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.batch_size,p1__10422_SHARP_.target.value);
 }),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Type Size"], null)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.start-game","input.start-game",-1313094),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"id","id",-1388402092),"btnStart",new cljs.core.Keyword(null,"onClick","onClick",-1991238530),(function (){
 penny_pub_react.core.start_game.call(null);
 
@@ -432,13 +439,13 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 }
 });
 penny_pub_react.core.step3_page = (function penny_pub_react$core$step3_page(){
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-collaboration","i.icon-collaboration",-1510640874)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Team:"], null),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),[cljs.core.str("You are player "),cljs.core.str(cljs.core.deref.call(null,penny_pub_react.core.player_number))].join('')], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),"of 4 max"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Type your name:"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.form-control","input.form-control",-1123419636),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"id","id",-1388402092),"user_name",new cljs.core.Keyword(null,"key","key",-1516042587),"user_name",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__9276_SHARP_){
-return cljs.core.reset_BANG_.call(null,penny_pub_react.core.user_name,p1__9276_SHARP_.target.value);
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.instructions-wrap","div.instructions-wrap",-1420872975),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.container","div.container",72419955),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.row","div.row",133678515),new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.col-md-8.col-md-offset-2","div.col-md-8.col-md-offset-2",140139886),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"i.icon-collaboration","i.icon-collaboration",-1510640874)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h1","h1",-1896887462),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),"Team:"], null),cljs.core.deref.call(null,penny_pub_react.core.team_name)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.separ","div.separ",-1408513065)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"h2","h2",-372662728),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span.title","span.title",-1997593088),[cljs.core.str("You are player "),cljs.core.str(cljs.core.deref.call(null,penny_pub_react.core.player_number))].join('')], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"span","span",1394872991),"of 4 max"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"p","p",151049309),"Type your name:"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"form","form",-1624062471),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.form-group","div.form-group",-1721134770),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.form-control","input.form-control",-1123419636),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"type","type",1174270348),"text",new cljs.core.Keyword(null,"id","id",-1388402092),"user_name",new cljs.core.Keyword(null,"key","key",-1516042587),"user_name",new cljs.core.Keyword(null,"on-change","on-change",-732046149),(function (p1__10432_SHARP_){
+return cljs.core.reset_BANG_.call(null,penny_pub_react.core.user_name,p1__10432_SHARP_.target.value);
 }),new cljs.core.Keyword(null,"placeholder","placeholder",-104873083),"Your Name"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"input.start-game","input.start-game",-1313094),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"type","type",1174270348),"button",new cljs.core.Keyword(null,"id","id",-1388402092),"btnReady",new cljs.core.Keyword(null,"onClick","onClick",-1991238530),(function (){
 cljs.core.reset_BANG_.call(null,penny_pub_react.core.player_name,cljs.core.deref.call(null,penny_pub_react.core.user_name));
 
-penny_pub_react.pubnub.set_state.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj9280 = {"username":cljs.core.deref.call(null,penny_pub_react.core.player_name),"player_number":cljs.core.deref.call(null,penny_pub_react.core.player_number)};
-return obj9280;
+penny_pub_react.pubnub.set_state.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),(function (){var obj10436 = {"username":cljs.core.deref.call(null,penny_pub_react.core.player_name),"player_number":cljs.core.deref.call(null,penny_pub_react.core.player_number)};
+return obj10436;
 })());
 
 return penny_pub_react.pubnub.update_players_data.call(null,cljs.core.deref.call(null,penny_pub_react.core.team_slug),penny_pub_react.core.players);

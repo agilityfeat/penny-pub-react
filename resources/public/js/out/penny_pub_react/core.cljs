@@ -26,7 +26,7 @@
 (def finished? (atom false))
 
 ;players
-(def player-data {:username "" :state "new" :coins 0}) 
+(def player-data {:username "" :state "new" :coins 0 :releases 0}) 
 (def players (atom [player-data 
                     player-data 
                     player-data
@@ -34,6 +34,7 @@
 
 ;general atoms
 (def counter (atom 0))
+(def qty-releases (atom 0))
 (def qty-to-send (atom 0))
 (def timers (atom {:timer 0 :timer-first 0 :timer-total 0}))
 (defonce time-updater (js/setInterval
@@ -90,6 +91,9 @@
           (reset! playing? true))))
 
 (defn release [player_number qty]
+    (def p-index (- player_number 1))
+    (reset! qty-releases (inc @qty-releases))
+    (swap! players assoc-in [p-index :releases] (inc (get-in @players [p-index :releases]))) 
     (pubnub/send-message @team-slug (js-obj "username" "moderador"
                                             "state_game" "update_coins"
                                             "player_from" player_number
@@ -159,7 +163,7 @@
   [:div
     [:div.coin-table
           (doall(for [x (range 0 (get-in @players [player-index :coins]))]
-                [:div.click.panel.circle {:key (str "p_" player-index "_" x "_" (get-in @players [player-index :coins]))
+                [:div.click.panel.circle {:key (str "p_" player-index "_" x "_" (get-in @players [p-index :releases]))
                                       :id (str "p_" player-index "_" x)
                                       :onClick (fn []
                                                     
@@ -311,7 +315,7 @@
           [:li [:i.icon-user-block] (get-player-name player-index)])
         
         (when (p-ready? player-index) 
-          [:li.active [:i.icon-user-check] (get-player-name player-index)]))  
+          [:li.active {:key (str "li-player" player-index)} [:i.icon-user-check {:key (str "iuc-player" player-index)}] (get-player-name player-index)]))  
 
 (defn step4-page []
   (if (= false @playing?)
