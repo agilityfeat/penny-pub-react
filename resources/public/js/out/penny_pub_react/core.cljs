@@ -371,7 +371,7 @@
     
 
 (defn step2-page []
-  (if (or true (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
+  (if (and (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
     [step4-page]
     (do 
       [:div.instructions-wrap
