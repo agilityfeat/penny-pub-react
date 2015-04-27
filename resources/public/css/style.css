@@ -382,13 +382,13 @@ flipping stuff
 .panel {
   display: inline-block;
 	background: none;
-	width: 34px;
-	height:30px;
+	width: 28px;
+	height:28px;
 	margin: 5px;
 	position: relative;
 	text-align: center;
-  line-height: 35px;
-  font-size: 35px;
+  line-height: 28px;
+  font-size: 28px;
 
 	-webkit-perspective: 600px;
 	-moz-perspective: 600px;

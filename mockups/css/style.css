@@ -339,6 +339,7 @@ a:hover{
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   color: #FFE100;
+  z-index: 100;
 }
 
 .game-on .timer2{
@@ -370,13 +371,14 @@ flipping stuff
 .panel {
   display: inline-block;
 	background: none;
-	width: 30px;
-	height:30px;
-	margin: 5px;
+	width: 28px;
+	height:28px;
+	margin: 0px;
 	position: relative;
 	text-align: center;
-  line-height: 35px;
-  font-size: 35px;
+  line-height: 28px;
+  font-size: 28px;
+
 
 	-webkit-perspective: 600px;
 	-moz-perspective: 600px;
