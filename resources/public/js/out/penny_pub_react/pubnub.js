@@ -22,8 +22,8 @@ return cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.P
  * Send a message to the channel
  */
 penny_pub_react.pubnub.send_message = (function penny_pub_react$pubnub$send_message(channel_slug,message){
-penny_pub_react.pubnub.message_obj = (function (){var obj5620 = {"channel":channel_slug,"message":message};
-return obj5620;
+penny_pub_react.pubnub.message_obj = (function (){var obj8891 = {"channel":channel_slug,"message":message};
+return obj8891;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.publish(penny_pub_react.pubnub.message_obj);
@@ -55,8 +55,8 @@ if(cljs.core._EQ_.call(null,moderator_QMARK_)){
 if(cljs.core._EQ_.call(null,new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)),(0))){
 cljs.core.swap_BANG_.call(null,timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer-first","timer-first",858682165),new cljs.core.Keyword(null,"timer","timer",-1266967739).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)));
 
-penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,channel_slug),(function (){var obj5626 = {"state_game":"update_first_time","time":new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
-return obj5626;
+penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj8897 = {"state_game":"update_first_time","time":new cljs.core.Keyword(null,"timer-first","timer-first",858682165).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
+return obj8897;
 })());
 } else {
 }
@@ -71,8 +71,8 @@ cljs.core.reset_BANG_.call(null,finished_QMARK_,true);
 if(cljs.core._EQ_.call(null,moderator_QMARK_)){
 cljs.core.swap_BANG_.call(null,timers,cljs.core.assoc,new cljs.core.Keyword(null,"timer-total","timer-total",1029882551),new cljs.core.Keyword(null,"timer","timer",-1266967739).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers)));
 
-return penny_pub_react.pubnub.send_message.call(null,cljs.core.deref.call(null,channel_slug),(function (){var obj5628 = {"state_game":"update_total_time","time":new cljs.core.Keyword(null,"timer-total","timer-total",1029882551).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
-return obj5628;
+return penny_pub_react.pubnub.send_message.call(null,channel_slug,(function (){var obj8899 = {"state_game":"update_total_time","time":new cljs.core.Keyword(null,"timer-total","timer-total",1029882551).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,timers))};
+return obj8899;
 })());
 } else {
 return null;
@@ -96,7 +96,7 @@ return cljs.core.swap_BANG_.call(null,players,cljs.core.assoc_in,new cljs.core.P
  * Update player's username and state
  */
 penny_pub_react.pubnub.update_players_data = (function penny_pub_react$pubnub$update_players_data(channel_slug,players){
-penny_pub_react.pubnub.update_players_data_obj = (function (){var obj5636 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.update_players_data_obj = (function (){var obj8907 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error update-players-data");
 
 console.log(m);
@@ -105,57 +105,57 @@ return console.log("end error update-players-data");
 }),"callback":(function (m){
 console.log("init callback update-players-data");
 
-var seq__5637_5641 = cljs.core.seq.call(null,m.uuids);
-var chunk__5638_5642 = null;
-var count__5639_5643 = (0);
-var i__5640_5644 = (0);
+var seq__8908_8912 = cljs.core.seq.call(null,m.uuids);
+var chunk__8909_8913 = null;
+var count__8910_8914 = (0);
+var i__8911_8915 = (0);
 while(true){
-if((i__5640_5644 < count__5639_5643)){
-var uuid_5645 = cljs.core._nth.call(null,chunk__5638_5642,i__5640_5644);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_5645.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_5645.state.player_number - (1)),uuid_5645);
+if((i__8911_8915 < count__8910_8914)){
+var uuid_8916 = cljs.core._nth.call(null,chunk__8909_8913,i__8911_8915);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_8916.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_8916.state.player_number - (1)),uuid_8916);
 } else {
 }
 
-var G__5646 = seq__5637_5641;
-var G__5647 = chunk__5638_5642;
-var G__5648 = count__5639_5643;
-var G__5649 = (i__5640_5644 + (1));
-seq__5637_5641 = G__5646;
-chunk__5638_5642 = G__5647;
-count__5639_5643 = G__5648;
-i__5640_5644 = G__5649;
+var G__8917 = seq__8908_8912;
+var G__8918 = chunk__8909_8913;
+var G__8919 = count__8910_8914;
+var G__8920 = (i__8911_8915 + (1));
+seq__8908_8912 = G__8917;
+chunk__8909_8913 = G__8918;
+count__8910_8914 = G__8919;
+i__8911_8915 = G__8920;
 continue;
 } else {
-var temp__4126__auto___5650 = cljs.core.seq.call(null,seq__5637_5641);
-if(temp__4126__auto___5650){
-var seq__5637_5651__$1 = temp__4126__auto___5650;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__5637_5651__$1)){
-var c__4884__auto___5652 = cljs.core.chunk_first.call(null,seq__5637_5651__$1);
-var G__5653 = cljs.core.chunk_rest.call(null,seq__5637_5651__$1);
-var G__5654 = c__4884__auto___5652;
-var G__5655 = cljs.core.count.call(null,c__4884__auto___5652);
-var G__5656 = (0);
-seq__5637_5641 = G__5653;
-chunk__5638_5642 = G__5654;
-count__5639_5643 = G__5655;
-i__5640_5644 = G__5656;
+var temp__4126__auto___8921 = cljs.core.seq.call(null,seq__8908_8912);
+if(temp__4126__auto___8921){
+var seq__8908_8922__$1 = temp__4126__auto___8921;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__8908_8922__$1)){
+var c__4884__auto___8923 = cljs.core.chunk_first.call(null,seq__8908_8922__$1);
+var G__8924 = cljs.core.chunk_rest.call(null,seq__8908_8922__$1);
+var G__8925 = c__4884__auto___8923;
+var G__8926 = cljs.core.count.call(null,c__4884__auto___8923);
+var G__8927 = (0);
+seq__8908_8912 = G__8924;
+chunk__8909_8913 = G__8925;
+count__8910_8914 = G__8926;
+i__8911_8915 = G__8927;
 continue;
 } else {
-var uuid_5657 = cljs.core.first.call(null,seq__5637_5651__$1);
-if(!(cljs.core._EQ_.call(null,"moderador",uuid_5657.state.username))){
-penny_pub_react.pubnub.update_player.call(null,players,(uuid_5657.state.player_number - (1)),uuid_5657);
+var uuid_8928 = cljs.core.first.call(null,seq__8908_8922__$1);
+if(!(cljs.core._EQ_.call(null,"moderador",uuid_8928.state.username))){
+penny_pub_react.pubnub.update_player.call(null,players,(uuid_8928.state.player_number - (1)),uuid_8928);
 } else {
 }
 
-var G__5658 = cljs.core.next.call(null,seq__5637_5651__$1);
-var G__5659 = null;
-var G__5660 = (0);
-var G__5661 = (0);
-seq__5637_5641 = G__5658;
-chunk__5638_5642 = G__5659;
-count__5639_5643 = G__5660;
-i__5640_5644 = G__5661;
+var G__8929 = cljs.core.next.call(null,seq__8908_8922__$1);
+var G__8930 = null;
+var G__8931 = (0);
+var G__8932 = (0);
+seq__8908_8912 = G__8929;
+chunk__8909_8913 = G__8930;
+count__8910_8914 = G__8931;
+i__8911_8915 = G__8932;
 continue;
 }
 } else {
@@ -166,7 +166,7 @@ break;
 
 return console.log("end callback update-players-data");
 })};
-return obj5636;
+return obj8907;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update_players_data_obj);
@@ -175,7 +175,7 @@ return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.update
  * Update player's username and state
  */
 penny_pub_react.pubnub.subscribe_moderator = (function penny_pub_react$pubnub$subscribe_moderator(channel_name,channel_slug,players,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj5667 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_moderator_obj = (function (){var obj8938 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 console.log("init message moderator");
 
 if(cljs.core._EQ_.call(null,"update_coins",m.state_game)){
@@ -192,16 +192,16 @@ console.log(m);
 penny_pub_react.pubnub.update_players_data.call(null,channel_slug,players);
 
 return console.log("end presence moderator");
-}),"state":(function (){var obj5669 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
-return obj5669;
+}),"state":(function (){var obj8940 = {"username":"moderador","state_game":"waiting_for_players","channel_name":channel_name};
+return obj8940;
 })()};
-return obj5667;
+return obj8938;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_moderator_obj);
 });
 penny_pub_react.pubnub.get_team_name = (function penny_pub_react$pubnub$get_team_name(channel_slug,team_name){
-penny_pub_react.pubnub.get_team_name_obj = (function (){var obj5677 = {"channel":channel_slug,"state":"true","error":(function (m){
+penny_pub_react.pubnub.get_team_name_obj = (function (){var obj8948 = {"channel":channel_slug,"state":"true","error":(function (m){
 console.log("init error get-team-name");
 
 console.log(m);
@@ -214,57 +214,57 @@ console.log(m);
 
 console.log("end here-now get-team-name");
 
-var seq__5678 = cljs.core.seq.call(null,m.uuids);
-var chunk__5679 = null;
-var count__5680 = (0);
-var i__5681 = (0);
+var seq__8949 = cljs.core.seq.call(null,m.uuids);
+var chunk__8950 = null;
+var count__8951 = (0);
+var i__8952 = (0);
 while(true){
-if((i__5681 < count__5680)){
-var uuid = cljs.core._nth.call(null,chunk__5679,i__5681);
+if((i__8952 < count__8951)){
+var uuid = cljs.core._nth.call(null,chunk__8950,i__8952);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__5682 = seq__5678;
-var G__5683 = chunk__5679;
-var G__5684 = count__5680;
-var G__5685 = (i__5681 + (1));
-seq__5678 = G__5682;
-chunk__5679 = G__5683;
-count__5680 = G__5684;
-i__5681 = G__5685;
+var G__8953 = seq__8949;
+var G__8954 = chunk__8950;
+var G__8955 = count__8951;
+var G__8956 = (i__8952 + (1));
+seq__8949 = G__8953;
+chunk__8950 = G__8954;
+count__8951 = G__8955;
+i__8952 = G__8956;
 continue;
 } else {
-var temp__4126__auto__ = cljs.core.seq.call(null,seq__5678);
+var temp__4126__auto__ = cljs.core.seq.call(null,seq__8949);
 if(temp__4126__auto__){
-var seq__5678__$1 = temp__4126__auto__;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__5678__$1)){
-var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__5678__$1);
-var G__5686 = cljs.core.chunk_rest.call(null,seq__5678__$1);
-var G__5687 = c__4884__auto__;
-var G__5688 = cljs.core.count.call(null,c__4884__auto__);
-var G__5689 = (0);
-seq__5678 = G__5686;
-chunk__5679 = G__5687;
-count__5680 = G__5688;
-i__5681 = G__5689;
+var seq__8949__$1 = temp__4126__auto__;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__8949__$1)){
+var c__4884__auto__ = cljs.core.chunk_first.call(null,seq__8949__$1);
+var G__8957 = cljs.core.chunk_rest.call(null,seq__8949__$1);
+var G__8958 = c__4884__auto__;
+var G__8959 = cljs.core.count.call(null,c__4884__auto__);
+var G__8960 = (0);
+seq__8949 = G__8957;
+chunk__8950 = G__8958;
+count__8951 = G__8959;
+i__8952 = G__8960;
 continue;
 } else {
-var uuid = cljs.core.first.call(null,seq__5678__$1);
+var uuid = cljs.core.first.call(null,seq__8949__$1);
 if(cljs.core._EQ_.call(null,"moderador",uuid.state.username)){
 cljs.core.reset_BANG_.call(null,team_name,uuid.state.channel_name);
 } else {
 }
 
-var G__5690 = cljs.core.next.call(null,seq__5678__$1);
-var G__5691 = null;
-var G__5692 = (0);
-var G__5693 = (0);
-seq__5678 = G__5690;
-chunk__5679 = G__5691;
-count__5680 = G__5692;
-i__5681 = G__5693;
+var G__8961 = cljs.core.next.call(null,seq__8949__$1);
+var G__8962 = null;
+var G__8963 = (0);
+var G__8964 = (0);
+seq__8949 = G__8961;
+chunk__8950 = G__8962;
+count__8951 = G__8963;
+i__8952 = G__8964;
 continue;
 }
 } else {
@@ -274,24 +274,24 @@ return null;
 break;
 }
 })};
-return obj5677;
+return obj8948;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.here_now(penny_pub_react.pubnub.get_team_name_obj);
 });
 penny_pub_react.pubnub.set_state = (function penny_pub_react$pubnub$set_state(channel_slug,jsobj){
-penny_pub_react.pubnub.set_state_obj = (function (){var obj5697 = {"channel":channel_slug,"error":(function (m){
+penny_pub_react.pubnub.set_state_obj = (function (){var obj8968 = {"channel":channel_slug,"error":(function (m){
 return console.log(m);
 }),"callback":(function (m){
 return console.log(m);
 }),"state":jsobj};
-return obj5697;
+return obj8968;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.state(penny_pub_react.pubnub.set_state_obj);
 });
 penny_pub_react.pubnub.subscribe_user = (function penny_pub_react$pubnub$subscribe_user(channel_slug,team_name,player_number,player_name,connected_QMARK_,players,playing_QMARK_,batch_size,total_coins,timers,finished_QMARK_){
-penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj5705 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
+penny_pub_react.pubnub.subscribe_user_obj = (function (){var obj8976 = {"channel":channel_slug,"noheresync":"true","message":(function (m){
 console.log("init message user");
 
 if(cljs.core._EQ_.call(null,"start_game",m.state_game)){
@@ -333,8 +333,8 @@ penny_pub_react.pubnub.my_obj = cljs.core.js__GT_clj.call(null,m);
 
 cljs.core.reset_BANG_.call(null,player_number,(parseInt(cljs.core.get.call(null,penny_pub_react.pubnub.my_obj,"occupancy")) - (1)));
 
-penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj5707 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
-return obj5707;
+penny_pub_react.pubnub.set_state.call(null,channel_slug,(function (){var obj8978 = {"username":"new-player","player_number":cljs.core.deref.call(null,player_number)};
+return obj8978;
 })());
 } else {
 }
@@ -348,10 +348,10 @@ console.log("init connect subscribe-user");
 penny_pub_react.pubnub.get_team_name.call(null,channel_slug,team_name);
 
 return console.log("end connect subscribe-user");
-}),"state":(function (){var obj5709 = {"username":"new-player"};
-return obj5709;
+}),"state":(function (){var obj8980 = {"username":"new-player"};
+return obj8980;
 })()};
-return obj5705;
+return obj8976;
 })();
 
 return penny_pub_react.pubnub.PUBNUB_demo.subscribe(penny_pub_react.pubnub.subscribe_user_obj);

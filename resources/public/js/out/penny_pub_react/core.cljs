@@ -162,7 +162,8 @@
                 [:div.click.panel.circle {:key (str "p_" player-index "_" x "_" (get-in @players [player-index :coins]))
                                       :id (str "p_" player-index "_" x)
                                       :onClick (fn []
-                                                    (when (= (+ player-index 1) @player-number)
+                                                    
+                                                      (when (= (+ player-index 1) @player-number)
                                                       (def subtract? (flip (str "p_" player-index "_" x)))
                                                       (if (= subtract? false)
                                                         (do
@@ -190,11 +191,14 @@
 
 (defn game []
   [:div.game-on
-      (if (= true @moderator?)
-        (do 
-            [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]]
+      
+      (when (= true @moderator?)
+        [:div.timer [:span "Overall Time:" [:strong (format-time (:timer @timers))]]])
+      
+      (when (= true @moderator?)
             (if (> (:timer-first @timers) 0)
                 [:div.timer-first [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
+      (when (= false @moderator?)      
         (if (> (:timer-first @timers) 0)
           [:div.timer [:span "First Batch:" [:strong (format-time (:timer-first @timers))]]]))
       
@@ -363,7 +367,7 @@
     
 
 (defn step2-page []
-  (if (and  (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
+  (if (and (p-ready? 0) (p-ready? 1) (p-ready? 2) (p-ready? 3))
     [step4-page]
     (do 
       [:div.instructions-wrap

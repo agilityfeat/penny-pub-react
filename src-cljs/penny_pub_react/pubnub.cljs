@@ -53,7 +53,7 @@
 				(if (= (:timer-first @timers) 0)
 					(do 
 						(swap! timers assoc :timer-first (:timer @timers))
-						(send-message @channel-slug (js-obj "state_game" "update_first_time"
+						(send-message channel-slug (js-obj "state_game" "update_first_time"
                                            				    "time" (:timer-first @timers))))))
 		
 		
@@ -63,7 +63,7 @@
 			(if (= moderator?)
 				(do 
 					(swap! timers assoc :timer-total (:timer @timers))
-					(send-message @channel-slug (js-obj "state_game" "update_total_time"
+					(send-message channel-slug (js-obj "state_game" "update_total_time"
                                            				    "time" (:timer-total @timers))))))))
 
 (defn update-player
