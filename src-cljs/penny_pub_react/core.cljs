@@ -141,7 +141,8 @@
           [:p "Have you ever struggled to teach a product team that its more efficient to work in small batch sizes?
                Agile and Lean coaches have been using the penny game to show how teams that work in small chunks are much more efficient.
                Usually this game is played in person with nothing but a stack of coins."]
-          [:p "We’ve built thus online version so remote teams can play it together in real-time."]     
+          [:p "We’ve built thus online version so remote teams can play it together in real-time.  To learn more about how our team at AgilityFeat built this real-time application using PubNub and Clojure, " 
+              [:a {:href "http://www.agilityfeat.com/blog/2015/06/real-time-game-using-pubnub"} "check out our blog post"] "!"]
           [:form 
             [:div.form-group
               [:input.form-control {:type "text" 
