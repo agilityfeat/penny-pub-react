@@ -154,11 +154,13 @@
                                   :id "btnTeam" 
                                   :placeholder "Team Name" 
                                   :onClick (fn [] 
-                                                  (reset! team-slug (slug @team-name))
-                                                  (reset! moderator? true)
-                                                  (pubnub/connect)
-                                                  (pubnub/subscribe-moderator @team-name @team-slug players timers finished?)
-                                                  (session/put! :page :step2))
+                                                  (if-not (= @team-name "")
+                                                    (do
+                                                      (reset! team-slug (slug @team-name))
+                                                      (reset! moderator? true)
+                                                      (pubnub/connect)
+                                                      (pubnub/subscribe-moderator @team-name @team-slug players timers finished?)
+                                                      (session/put! :page :step2))))
                                   :value "Start Game"}]]]
           [copyright]]]]])
 
