@@ -4,8 +4,9 @@
 ;;******* PubNub config *******
 
 ;;Define publish_key and subscribe_key 
-(def pubInit {:publish_key "pub-c-0203f03f-f8c1-4bb9-8f19-45090d1e2251"
-        	  :subscribe_key "sub-c-6a41cc4c-dedf-11e4-a502-0619f8945a4f"})
+(def pubInit (js-obj  "publish_key" "pub-c-0203f03f-f8c1-4bb9-8f19-45090d1e2251" 
+	                    "subscribe_key" "sub-c-6a41cc4c-dedf-11e4-a502-0619f8945a4f"
+	                    "uuid" (.getTime (js/Date.))))
 ;;******* PubNub functions *******
 
 ;;Init Pubnub function 
@@ -69,6 +70,7 @@
 (defn update-player
 	"Update player's username and state "
 	[players p-index uuid]
+	(.log js/console "update-player" p-index)
 	(swap! players assoc-in [p-index :username] (.-state.username uuid))
 	(swap! players assoc-in [p-index :state] "ready"))
 
@@ -86,6 +88,8 @@
 						  										(doseq [uuid m.uuids]
 						  											(if-not (= "moderador" (.-state.username uuid))
 				  														(do 
+				  															(.log js/console players) 
+				  															(.log js/console uuid) 
 				  															(update-player players (- (.-state.player_number uuid) 1) uuid))))
 						  										(.log js/console "end callback update-players-data"))))
     	(.here_now PUBNUB_demo update-players-data-obj))  
@@ -166,7 +170,7 @@
 
 		  										(.log js/console "end message user") )
 									 "presence" (fn [m]
-									 				
+									 				(.log js/console (str "init presence subscribe-user" @player-number)) 
 									 				(if (string/blank? @player-number)
 									 					(do
 									 						(def my-obj (js->clj m))
@@ -179,6 +183,7 @@
 									 				(.log js/console "init connect subscribe-user") 
 									 				(get-team-name channel-slug team-name)
 									 				(.log js/console "end connect subscribe-user") )
-								 	 "state" (js-obj "username" "new-player")))
+								 	 "state" (js-obj "username" "new-player" 
+								 	 	             "player_number" 1)))
     (.subscribe PUBNUB_demo subscribe-user-obj))  
 

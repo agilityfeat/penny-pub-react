@@ -154,7 +154,7 @@
                                   :id "btnTeam" 
                                   :placeholder "Team Name" 
                                   :onClick (fn [] 
-                                                  (if-not (= @team-name "")
+                                                  (if-not (= (string/trim @team-name) "")
                                                     (do
                                                       (reset! team-slug (slug @team-name))
                                                       (reset! moderator? true)
